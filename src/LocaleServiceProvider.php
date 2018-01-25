@@ -2,9 +2,8 @@
 
 namespace mputkowski\Locale;
 
-use mputkowski\Locale\Locale;
-use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 
 class LocaleServiceProvider extends ServiceProvider
