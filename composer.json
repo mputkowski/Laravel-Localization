@@ -1,0 +1,30 @@
+{
+    "name": "mputkowski/locale",
+    "description": "Powerful Localization for Laravel 5",
+    "keywords": ["laravel", "framework", "localization", "locale"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Michal Putkowski",
+            "email": "m.putkowski@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "laravel/framework": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "mputkowski\\Locale\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "mputkowski\\Locale\\LocaleServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
