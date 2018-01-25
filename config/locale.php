@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'auto' => true,
+    'auto'        => true,
     'cookie_name' => 'lang',
 ];
