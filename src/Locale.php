@@ -87,9 +87,9 @@ class Locale
         foreach ($header as $lang) {
             $data = explode(';', $lang);
             array_push($langs, [
-                    'lang' => $data[0],
-                    'q'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
-                ]);
+                'lang' => $data[0],
+                'q'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
+            ]);
         }
 
         return $langs;
