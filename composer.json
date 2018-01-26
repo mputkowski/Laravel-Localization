@@ -1,5 +1,5 @@
 {
-    "name": "mputkowski/locale",
+    "name": "mputkowski/laravel-locale",
     "description": "Powerful Localization for Laravel 5",
     "keywords": ["laravel", "framework", "localization", "locale"],
     "license": "MIT",
