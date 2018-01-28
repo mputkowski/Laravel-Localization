@@ -2,6 +2,7 @@
 
 namespace mputkowski\Locale;
 
+use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +32,12 @@ class LocaleServiceProvider extends ServiceProvider
         App::bind('Locale', function () {
             return new Locale();
         });
+
+        if (Config::get('locale.lang_routes'))
+        {
+            $this->app['router']->group(['namespace' => 'mputkowski\Locale\Http\Controllers'], function () {
+                require __DIR__.'/Http/routes.php';
+            });
+        }
     }
 }

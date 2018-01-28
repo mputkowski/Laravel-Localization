@@ -17,11 +17,7 @@ class VerifyLangCookie
      */
     public function handle($request, Closure $next)
     {
-        if (!Locale::langCookieExists()) {
-            Locale::makeCookie();
-        } else {
-            Locale::verify();
-        }
+        Locale::verify();
 
         return $next($request);
     }

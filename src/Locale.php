@@ -32,7 +32,13 @@ class Locale
      */
     public function verify()
     {
-        if ($this->getCookie() !== App::getLocale()) {
+        if (!$this->langCookieExists())
+        {
+            $this->setLanguage($this->setAutomatically() 
+                ? $this->getPreferedLanguage() 
+                : 'default');
+        }
+        else if ($this->getCookie() !== App::getLocale()) {
             App::setLocale($this->getCookie());
         }
     }
@@ -41,28 +47,34 @@ class Locale
      * Set app language.
      *
      * @param string $lang
+     * @param bool $return_cookie
+     * 
+     * @return void|Symfony\Component\HttpFoundation\Cookie
      */
-    public function setLanguage($lang = 'default')
+    public function setLanguage($lang = 'default', $return_cookie = false)
     {
-        $code = ($lang === 'default') ? $this->default : $lang;
+        $code = $lang === 'default' || !$this->langDirExists($lang) ? $this->default : $lang;
 
         App::setLocale($code);
-        Cookie::queue(cookie()->forever($this->getCookieName(), $code));
+
+        if ($return_cookie)
+            return $this->setCookie($lang);
+
+        Cookie::queue($this->setCookie($lang));
     }
 
     /**
-     * Make lang cookie.
+     * Set and return lang cookie
+     * 
+     * @param string $lang
      *
-     * @return void
+     * @return Symfony\Component\HttpFoundation\Cookie
      */
-    public function makeCookie()
+    public function setCookie($lang)
     {
-        if ($this->setAutomatically()) {
-            return $this->setLanguage($this->getPreferedLanguage());
-        }
-
-        return $this->setLanguage();
+        return cookie()->forever($this->getCookieName(), $lang);
     }
+
 
     /**
      * Get current app language.
