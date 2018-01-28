@@ -2,7 +2,6 @@
 
 namespace mputkowski\Locale\Http\Controllers;
 
-use Cookie;
 use mputkowski\Locale\Facades\Locale;
 
 class LocaleController extends Controller
