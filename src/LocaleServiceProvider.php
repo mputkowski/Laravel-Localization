@@ -42,10 +42,10 @@ class LocaleServiceProvider extends ServiceProvider
     protected function getParameters()
     {
         return [
-            'auto' => config('locale.auto', true),
-            'cookie_name' => config('locale.cookie_name', 'lang'),
+            'auto'           => config('locale.auto', true),
+            'cookie_name'    => config('locale.cookie_name', 'lang'),
             'default_locale' => config('app.locale', 'en'),
-            'routes' => config('locale.routes', true),
+            'routes'         => config('locale.routes', true),
         ];
     }
 }
