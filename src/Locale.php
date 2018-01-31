@@ -16,7 +16,7 @@ class Locale
 
     /**
      * Create a new instance.
-     * 
+     *
      * @param array $config
      *
      * @return void
