@@ -4,26 +4,52 @@ namespace mputkowski\Locale;
 
 use Cookie;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 
 class Locale
 {
     /**
-     * Default app language.
+     * Locale config.
      *
      * @var string
      */
-    public $default;
+    private $config;
 
     /**
      * Create a new instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(array $config = [])
     {
-        $this->default = Config::get('app.locale');
+        $this->config = $config;
     }
+
+    /**
+     * Get config variable.
+     * 
+     * @param  string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (array_key_exists($name, $this->config))
+            return $this->config[$name];
+    }
+
+    /**
+     * Set config variable.
+     * 
+     * @param string $name
+     * @param mixed $value
+     *
+     * @return void
+     */
+    public function __set($name, $value)
+    {
+        if (array_key_exists($name, $this->config))
+            $this->config[$name] = $value;
+    }
+
 
     /**
      * Check if app language is the same as value of language cookie.
@@ -33,9 +59,7 @@ class Locale
     public function verify()
     {
         if (!$this->langCookieExists()) {
-            $this->setLanguage($this->setAutomatically()
-                ? $this->getPreferedLanguage()
-                : 'default');
+            $this->setLanguage($this->auto ? $this->getPreferedLanguage() : 'default');
         } elseif ($this->getCookie() !== App::getLocale()) {
             App::setLocale($this->getCookie());
         }
@@ -51,7 +75,7 @@ class Locale
      */
     public function setLanguage($lang = 'default', $return_cookie = false)
     {
-        $code = $lang === 'default' || !$this->langDirExists($lang) ? $this->default : $lang;
+        $code = $lang === 'default' || !$this->langDirExists($lang) ? $this->default_locale : $lang;
 
         App::setLocale($code);
 
@@ -71,7 +95,7 @@ class Locale
      */
     public function setCookie($lang)
     {
-        return cookie()->forever($this->getCookieName(), $lang);
+        return cookie()->forever($this->cookie_name, $lang);
     }
 
     /**
@@ -129,7 +153,7 @@ class Locale
             }
         }
 
-        return ($this->langDirExists($lang)) ? $lang : $this->default;
+        return ($this->langDirExists($lang)) ? $lang : $this->default_locale;
     }
 
     /**
@@ -139,7 +163,7 @@ class Locale
      */
     public function getCookie()
     {
-        return Cookie::get($this->getCookieName());
+        return Cookie::get($this->cookie_name);
     }
 
     /**
@@ -149,7 +173,7 @@ class Locale
      */
     public function langCookieExists()
     {
-        return Cookie::has($this->getCookieName());
+        return Cookie::has($this->cookie_name);
     }
 
     /**
@@ -162,25 +186,5 @@ class Locale
     private function langDirExists($dir)
     {
         return file_exists(App::langPath().vsprintf('/%s', $dir));
-    }
-
-    /**
-     * Get 'auto' config value.
-     *
-     * @return string
-     */
-    private function setAutomatically()
-    {
-        return Config::get('locale.auto', true);
-    }
-
-    /**
-     * Get 'cookie_name' config value.
-     *
-     * @return string
-     */
-    private function getCookieName()
-    {
-        return Config::get('locale.cookie_name', 'lang');
     }
 }
