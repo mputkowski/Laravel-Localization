@@ -26,30 +26,32 @@ class Locale
 
     /**
      * Get config variable.
-     * 
-     * @param  string $name
+     *
+     * @param string $name
+     *
      * @return mixed
      */
     public function __get($name)
     {
-        if (array_key_exists($name, $this->config))
+        if (array_key_exists($name, $this->config)) {
             return $this->config[$name];
+        }
     }
 
     /**
      * Set config variable.
-     * 
+     *
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      *
      * @return void
      */
     public function __set($name, $value)
     {
-        if (array_key_exists($name, $this->config))
+        if (array_key_exists($name, $this->config)) {
             $this->config[$name] = $value;
+        }
     }
-
 
     /**
      * Check if app language is the same as value of language cookie.
