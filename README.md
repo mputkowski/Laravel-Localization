@@ -1,5 +1,5 @@
 # Locale
-[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square)]()
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square)](https://travis-ci.org/mputkowski/laravel-locale)
 [![StyleCI](https://styleci.io/repos/118966076/shield)](https://styleci.io/repos/118966076)
 [![Latest Stable Version](https://poser.pugx.org/mputkowski/laravel-locale/v/stable?format=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
 [![Total Downloads](https://poser.pugx.org/mputkowski/laravel-locale/downloads?format=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
