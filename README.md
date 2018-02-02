@@ -17,29 +17,29 @@ Publish package's config file
 php artisan vendor:publish
 ```
 In `config/app.php`, add the following to `providers` array:
-```
+```php
 'providers' => [
-    ...
-    ...
-    ...
+    //
+    //
+    //
     mputkowski\Locale\LocaleServiceProvider::class,
 ],
 ```
 And register alias in `aliases` array:
-```
+```php
 'aliases' => [
-    ...
-    ...
-    ...
+    //
+    //
+    //
     'Locale' => mputkowski\Locale\Facades\Locale::class,
 ],
 ```
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
-```
+```php
 'web' => [
-    ...
-    ...
-    ...
+    //
+    //
+    //
     \mputkowski\Locale\Http\Middleware\VerifyLangCookie::class,
 ],
 ```
