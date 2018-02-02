@@ -23,11 +23,11 @@ class ParseTest extends TestCase
     {
         $header = 'en,en-US;q=0.9,de;q=0.8,pl;q=0.7';
         $arr1 = $this->locale->getBrowserLanguages($header);
-        $arr2 = array(
+        $arr2 = [
             ['lang' => 'en', 'q' => 1.0],
             ['lang' => 'en-US', 'q' => 0.9],
             ['lang' => 'de', 'q' => 0.8],
-            ['lang' => 'pl', 'q' => 0.7]);
+            ['lang' => 'pl', 'q' => 0.7], ];
 
         $this->assertEquals($arr1, $arr2);
     }
