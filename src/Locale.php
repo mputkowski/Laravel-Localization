@@ -116,7 +116,7 @@ class Locale
      * Get browser languages from http header.
      *
      * @param null|string $header
-     * 
+     *
      * @return array
      */
     public function getBrowserLanguages($header = null)
