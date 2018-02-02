@@ -115,15 +115,17 @@ class Locale
     /**
      * Get browser languages from http header.
      *
+     * @param null|string $header
+     * 
      * @return array
      */
-    public function getBrowserLanguages()
+    public function getBrowserLanguages($header = null)
     {
-        $header = explode(',', request()->header('Accept-Language'));
+        $elements = explode(',', $header ?? request()->header('Accept-Language'));
         $langs = [];
 
-        foreach ($header as $lang) {
-            $data = explode(';', $lang);
+        foreach ($elements as $element) {
+            $data = explode(';', $element);
             array_push($langs, [
                 'lang' => $data[0],
                 'q'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
