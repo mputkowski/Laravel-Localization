@@ -1,6 +1,6 @@
 <?php
 
-use mputkowski\Locale\locale;
+use mputkowski\Locale\Locale;
 use PHPUnit\Framework\TestCase;
 
 class ParseTest extends TestCase
