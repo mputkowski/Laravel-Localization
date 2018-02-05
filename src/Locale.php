@@ -159,7 +159,7 @@ class Locale
             }
         }
 
-        return ($this->langDirExists($lang)) ? $lang : $this->default_locale;
+        return $this->langDirExists($lang) ? $lang : $this->default_locale;
     }
 
     /**
