@@ -1,7 +1,7 @@
 {
     "name": "mputkowski/laravel-locale",
     "description": "Powerful Localization for Laravel 5",
-    "keywords": ["laravel", "framework", "localization", "locale"],
+    "keywords": ["laravel", "framework", "localization", "locale", "Laravel Locale", "Laravel-Locale"],
     "license": "MIT",
     "authors": [
         {
@@ -21,11 +21,19 @@
             "mputkowski\\Locale\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "mputkowski\\Tests\\Locale\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
                 "mputkowski\\Locale\\LocaleServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "Locale": "mputkowski\\Locale\\Facades\\Locale"
+            }
         }
     },
     "minimum-stability": "dev",
