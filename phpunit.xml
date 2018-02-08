@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="vendor/autoload.php"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
+<phpunit 
+        bootstrap="vendor/autoload.php"
+        backupGlobals="false"
+        backupStaticAttributes="false"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        processIsolation="false"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        syntaxCheck="true"
+        timeoutForLargeTests="60"
+        timeoutForMediumTests="10"
+        timeoutForSmallTests="1"
+        verbose="false"
+        >
     <testsuites>
         <testsuite>
             <directory suffix="Test.php">./tests</directory>
