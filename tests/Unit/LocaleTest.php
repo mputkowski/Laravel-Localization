@@ -1,4 +1,5 @@
 <?php
+
 namespace mputkowski\Tests\Locale\Unit;
 
 class LocaleTest extends AbstractTestCase
