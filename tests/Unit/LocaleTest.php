@@ -33,6 +33,15 @@ class LocaleTest extends AbstractTestCase
         $this->assertEquals('en', $locale->getCurrentLanguage());
     }
 
+    public function test_set_lang_method_sets_app_lang_properly()
+    {
+        $locale = $this->getLocale();
+        $this->assertTrue($this->createLangDir('cs'));
+        $locale->setLanguage('cs');
+        $this->assertEquals('cs', app()->getLocale());
+        $this->assertTrue($this->deleteLangDir('cs'));
+    }
+
     public function test_set_lang_method_returns_cookie()
     {
         $locale = $this->getLocale();

@@ -185,12 +185,12 @@ class Locale
     /**
      * Check if app supports specified language.
      *
-     * @param string $dir
+     * @param string $lang
      *
      * @return bool
      */
-    private function langDirExists($dir)
+    private function langDirExists($lang)
     {
-        return file_exists(App::langPath().vsprintf('/%s', $dir));
+        return file_exists(App::langPath().vsprintf('/%s', $lang));
     }
 }

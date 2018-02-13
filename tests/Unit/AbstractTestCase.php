@@ -17,8 +17,26 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     {
         $default_config = include __DIR__.'/../../config/locale.php';
         $config = array_replace_recursive($default_config, $config);
-        $config['default_locale'] = 'en';
+        
+        if (!array_key_exists('default_locale', $config))
+            $config['default_locale'] = 'en';
 
         return new Locale($config);
+    }
+
+    protected function createLangDir($lang)
+    {
+        $path = app()->langPath().vsprintf('/%s', $lang);
+
+        if (!file_exists($path))
+            return mkdir($path);
+    }
+
+    protected function deleteLangDir($lang)
+    {
+        $path = app()->langPath().vsprintf('/%s', $lang);
+
+        if (file_exists($path))
+            return rmdir($path);
     }
 }
