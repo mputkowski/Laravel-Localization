@@ -14,7 +14,22 @@ composer require mputkowski/laravel-locale
 ```
 Publish package's config file
 ```
-php artisan vendor:publish
+php artisan vendor:publish --provider="mputkowski\Locale\LocaleServiceProvider"
+```
+Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
+```php
+'web' => [
+    //
+    //
+    //
+    \mputkowski\Locale\Http\Middleware\VerifyLangCookie::class,
+],
+```
+**You don't have to register service provider and alias, this package uses Package Auto-Discovery.**
+
+### Manual installation
+```
+composer require mputkowski/laravel-locale
 ```
 In `config/app.php`, add the following to `providers` array:
 ```php
@@ -33,6 +48,9 @@ And register alias in `aliases` array:
     //
     'Locale' => mputkowski\Locale\Facades\Locale::class,
 ],
+```
+```
+php artisan vendor:publish --provider="mputkowski\Locale\LocaleServiceProvider"
 ```
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
 ```php
