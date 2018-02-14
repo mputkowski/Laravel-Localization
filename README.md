@@ -44,6 +44,18 @@ Include middleware within the `web` group in `middlewareGroups` array (`app/Http
 ],
 ```
 
+## Configuration
+Configuration is stored in `config/locale.php` file, it contains:
+* `auto` (type: `bool`, default: `true`)
+* `cookie_name` (type: `string`, default: `'lang'`)
+* `routes` (type: `bool`, default: `true`)
+
+### Auto-detection
+If `auto` is set to `true`, app will automatically detect client's language. Directories in `resources/lang` will be compared with client's `Accept-Language` header. If header doesn't match with app's locales, language will be set to default (value of `locale` in `config/app.php`). 
+
+### Routes
+This package also provides routes for quick language change (url: `/lang/{lang}`, example `/lang/en`).
+
 ## Contributing
 Feel free to create pull requests or open issues, I'll look on them as quick as I can.
 
