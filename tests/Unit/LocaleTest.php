@@ -58,4 +58,12 @@ class LocaleTest extends AbstractTestCase
         $this->assertTrue($cookie->isHttpOnly());
         $this->assertFalse($cookie->isSecure());
     }
+
+    public function test_route_is_valid()
+    {
+        //false - do not make absolute URL
+        $url = route('locale', ['lang' => 'it'], false);
+
+        $this->assertEquals('/lang/it', $url);
+    }
 }
