@@ -7,7 +7,8 @@ use mputkowski\Locale\Facades\Locale;
 class LocaleController extends Controller
 {
     /**
-     * @param  string $lang
+     * @param string $lang
+     *
      * @return Illuminate\Http\RedirectResponse
      */
     public function changeLanguage($lang = 'default')
