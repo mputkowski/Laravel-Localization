@@ -6,7 +6,11 @@ use mputkowski\Locale\Facades\Locale;
 
 class LocaleController extends Controller
 {
-    public function changeLanguage($lang)
+    /**
+     * @param  string $lang
+     * @return Illuminate\Http\RedirectResponse
+     */
+    public function changeLanguage($lang = 'default')
     {
         $cookie = Locale::setLanguage($lang, true);
 
