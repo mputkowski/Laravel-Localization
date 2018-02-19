@@ -1,9 +1,9 @@
 # Laravel Locale
 [![Travis branch](https://img.shields.io/travis/mputkowski/laravel-locale/master.svg?style=flat-square)](https://travis-ci.org/mputkowski/laravel-locale)
 [![StyleCI](https://styleci.io/repos/118966076/shield)](https://styleci.io/repos/118966076)
-[![Latest Stable Version](https://poser.pugx.org/mputkowski/laravel-locale/v/stable?format=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
-[![Total Downloads](https://poser.pugx.org/mputkowski/laravel-locale/downloads?format=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
-[![License](https://poser.pugx.org/mputkowski/laravel-locale/license?format=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mputkowski/laravel-locale.svg?style=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
+[![Total Downloads](https://img.shields.io/packagist/dt/mputkowski/laravel-locale.svg?style=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
+[![License](https://img.shields.io/github/license/mputkowski/laravel-locale.svg?style=flat-square)](https://github.com/mputkowski/laravel-locale/blob/master/LICENSE)
 
 Powerful Localization for Laravel 5
 
