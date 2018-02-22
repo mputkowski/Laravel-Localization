@@ -6,10 +6,14 @@ php:
   - 7.2
 
 install:
+  - travis_retry composer self-update
   - travis_retry composer install --no-interaction --no-suggest
 
 script:
-  - ./vendor/bin/phpunit
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
 
 cache:
   directories:
