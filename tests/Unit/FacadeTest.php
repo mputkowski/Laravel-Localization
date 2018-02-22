@@ -1,9 +1,10 @@
 <?php
+
 namespace mputkowski\Tests\Locale\Unit;
 
-use mputkowski\Locale\Locale;
-use mputkowski\Locale\Facades\Locale as LocaleFacade;
 use GrahamCampbell\TestBenchCore\FacadeTrait;
+use mputkowski\Locale\Facades\Locale as LocaleFacade;
+use mputkowski\Locale\Locale;
 
 class FacadeTest extends AbstractTestCase
 {
