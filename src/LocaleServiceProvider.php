@@ -5,6 +5,8 @@ namespace mputkowski\Locale;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use mputkowski\Locale\Facades\Locale as LocaleFacade;
+use mputkowski\Locale\Locale;
 
 class LocaleServiceProvider extends ServiceProvider
 {
@@ -27,10 +29,12 @@ class LocaleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        AliasLoader::getInstance()->alias('Locale', \mputkowski\Locale\Facades\Locale::class);
-        App::bind('Locale', function () {
-            return new Locale($this->getParameters());
+        $this->app->singleton('Locale', function () {
+            $config = $this->getParameters();
+            return new Locale($config);
         });
+        
+        $this->app->alias('Locale', LocaleFacade::class);
 
         if (config('locale.routes', true)) {
             $this->app['router']->group(['namespace' => 'mputkowski\Locale\Http\Controllers'], function () {
@@ -46,6 +50,18 @@ class LocaleServiceProvider extends ServiceProvider
             'cookie_name'    => config('locale.cookie_name', 'lang'),
             'default_locale' => config('app.locale', 'en'),
             'routes'         => config('locale.routes', true),
+        ];
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'Locale'
         ];
     }
 }
