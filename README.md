@@ -1,6 +1,7 @@
 # Laravel Locale
 [![Travis branch](https://img.shields.io/travis/mputkowski/laravel-locale/master.svg?style=flat-square)](https://travis-ci.org/mputkowski/laravel-locale)
 [![StyleCI](https://styleci.io/repos/118966076/shield)](https://styleci.io/repos/118966076)
+[![Codecov](https://img.shields.io/codecov/c/github/mputkowski/laravel-locale.svg?style=flat-square)](https://codecov.io/gh/mputkowski/laravel-locale)
 [![Latest Stable Version](https://img.shields.io/packagist/v/mputkowski/laravel-locale.svg?style=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
 [![Total Downloads](https://img.shields.io/packagist/dt/mputkowski/laravel-locale.svg?style=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
 [![License](https://img.shields.io/github/license/mputkowski/laravel-locale.svg?style=flat-square)](https://github.com/mputkowski/laravel-locale/blob/master/LICENSE)
