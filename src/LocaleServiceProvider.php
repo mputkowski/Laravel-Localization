@@ -2,11 +2,9 @@
 
 namespace mputkowski\Locale;
 
-use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
 use mputkowski\Locale\Facades\Locale as LocaleFacade;
-use mputkowski\Locale\Locale;
 
 class LocaleServiceProvider extends ServiceProvider
 {
@@ -31,9 +29,10 @@ class LocaleServiceProvider extends ServiceProvider
     {
         $this->app->singleton('Locale', function () {
             $config = $this->getParameters();
+
             return new Locale($config);
         });
-        
+
         $this->app->alias('Locale', LocaleFacade::class);
 
         if (config('locale.routes', true)) {
@@ -61,7 +60,7 @@ class LocaleServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'Locale'
+            'Locale',
         ];
     }
 }
