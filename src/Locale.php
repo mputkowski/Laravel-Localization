@@ -140,10 +140,10 @@ class Locale
      *
      * @return string
      */
-    private function getPreferedLanguage()
+    public function getPreferedLanguage($header = null)
     {
         //Browser's current language is in index 0
-        $lang = $this->getBrowserLanguages()[0]['lang'];
+        $lang = $this->getBrowserLanguages($header)[0]['lang'];
 
         if (strpos($lang, '-') !== false) {
             if ($this->langDirExists($lang)) {

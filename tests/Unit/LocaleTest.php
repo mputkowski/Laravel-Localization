@@ -9,6 +9,31 @@ class LocaleTest extends AbstractTestCase
         parent::setUp();
     }
 
+    public function test_property_overloading()
+    {
+        $locale = $this->getLocale();
+
+        $locale->default_locale = 'zh';
+        $this->assertEquals('zh', $locale->default_locale);
+    }
+
+    public function test_prefered_language()
+    {
+        $locale = $this->getLocale(['default_locale' => 'pl']);
+        $this->createLangDir('pl');
+
+        $header = 'de,fr;q=0.9,de;q=0.8,pl;q=0.7';
+        $lang = $locale->getPreferedLanguage($header);
+
+        $this->assertEquals('pl', $lang);
+
+        $header = 'en,fr;q=0.9,de;q=0.8,pl;q=0.7';
+        $lang = $locale->getPreferedLanguage($header);
+
+        $this->assertEquals('en', $lang);
+        $this->deleteLangDir('pl');
+    }
+
     public function test_parse_http_header()
     {
         $locale = $this->getLocale();
