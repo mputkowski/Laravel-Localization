@@ -146,10 +146,6 @@ class Locale
         $lang = $this->getBrowserLanguages($header)[0]['lang'];
 
         if (strpos($lang, '-') !== false) {
-            if ($this->langDirExists($lang)) {
-                return $lang;
-            }
-
             $codes = explode('-', $lang);
 
             foreach ($codes as $code) {
