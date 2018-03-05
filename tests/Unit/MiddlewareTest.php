@@ -18,8 +18,9 @@ class MiddlewareTest extends AbstractTestCase
 
         $locale = $this->getLocale();
         $middleware = new VerifyLangCookie();
-        $response = $middleware->handle($request, function () {});
-        
+        $response = $middleware->handle($request, function () {
+        });
+
         $lang = $locale->getCurrentLanguage();
         $this->assertEquals('fr', $lang);
     }
