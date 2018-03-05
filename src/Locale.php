@@ -57,15 +57,17 @@ class Locale
 
     /**
      * Check if app language is the same as value of language cookie.
-     *
+     * 
+     * @param Illuminate\Http\Request $request
+     * 
      * @return void
      */
-    public function verify()
+    public function verify($request)
     {
-        if (!$this->langCookieExists()) {
+        if (!$this->langCookieExists($request)) {
             $this->setLanguage($this->auto ? $this->getPreferedLanguage() : 'default');
         } elseif ($this->getCookie() !== App::getLocale()) {
-            App::setLocale($this->getCookie());
+            App::setLocale($request->cookies->get($this->cookie_name));
         }
     }
 
@@ -171,11 +173,13 @@ class Locale
     /**
      * Check if language cookie is set.
      *
+     * @param Illuminate\Http\Request $request
+     * 
      * @return bool
      */
-    public function langCookieExists()
+    public function langCookieExists($request)
     {
-        return Cookie::has($this->cookie_name);
+        return $request->cookies->has($this->cookie_name);
     }
 
     /**

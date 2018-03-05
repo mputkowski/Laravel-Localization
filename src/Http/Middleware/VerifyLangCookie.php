@@ -17,7 +17,7 @@ class VerifyLangCookie
      */
     public function handle($request, Closure $next)
     {
-        Locale::verify();
+        Locale::verify($request);
 
         return $next($request);
     }
