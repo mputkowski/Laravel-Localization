@@ -27,7 +27,7 @@ class LocaleTest extends AbstractTestCase
 
         $this->assertEquals('pl', $lang);
 
-        $header = 'en,fr;q=0.9,de;q=0.8,pl;q=0.7';
+        $header = 'en-US,fr;q=0.9,de;q=0.8,pl;q=0.7';
         $lang = $locale->getPreferedLanguage($header);
 
         $this->assertEquals('en', $lang);

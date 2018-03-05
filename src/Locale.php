@@ -191,6 +191,7 @@ class Locale
      */
     private function langDirExists($lang)
     {
+        $lang = strtolower($lang);
         return file_exists(App::langPath().vsprintf('/%s', $lang));
     }
 }
