@@ -57,9 +57,9 @@ class Locale
 
     /**
      * Check if app language is the same as value of language cookie.
-     * 
+     *
      * @param Illuminate\Http\Request $request
-     * 
+     *
      * @return void
      */
     public function verify($request)
@@ -174,7 +174,7 @@ class Locale
      * Check if language cookie is set.
      *
      * @param Illuminate\Http\Request $request
-     * 
+     *
      * @return bool
      */
     public function langCookieExists($request)
