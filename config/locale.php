@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'auto'        => true,
-    'cookie_name' => 'lang',
+    'auto'           => true,
+    'cookie_name'    => 'lang',
     'default_locale' => 'en',
-    'route' => [
+    'route'          => [
         'enabled' => true,
         'pattern' => '/lang/{lang}',
     ],

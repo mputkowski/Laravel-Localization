@@ -2,10 +2,10 @@
 
 namespace mputkowski\Tests\Locale;
 
+use GrahamCampbell\TestBench\AbstractPackageTestCase;
+use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
 use mputkowski\Locale\Locale;
-use Illuminate\Config\Repository;
-use GrahamCampbell\TestBench\AbstractPackageTestCase;
 use mputkowski\Locale\LocaleServiceProvider;
 
 abstract class AbstractTestCase extends AbstractPackageTestCase
@@ -18,10 +18,10 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('locale', [
-            'auto'        => true,
-            'cookie_name' => 'lang',
+            'auto'           => true,
+            'cookie_name'    => 'lang',
             'default_locale' => 'en',
-            'route' => [
+            'route'          => [
                 'enabled' => true,
                 'pattern' => '/lang/{lang}',
             ],
@@ -31,9 +31,9 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     protected function getLocale($request = null)
     {
         $data = require __DIR__.'/../config/locale.php';
-        $config = new Repository;
+        $config = new Repository();
         $config->set('locale', $data);
 
-        return new Locale($config, $request ?? new Request);
+        return new Locale($config, $request ?? new Request());
     }
 }
