@@ -2,9 +2,9 @@
 
 namespace mputkowski\Locale;
 
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Container\Container;
 use mputkowski\Locale\Facades\Locale as LocaleFacade;
 
 class LocaleServiceProvider extends ServiceProvider
@@ -44,6 +44,7 @@ class LocaleServiceProvider extends ServiceProvider
                 $locale = $this->app['locale'];
                 $locale->setLocale($lang);
                 $cookie = $locale->getCookie();
+
                 return back()->withCookie($cookie);
             })->name('locale');
         }

@@ -2,46 +2,46 @@
 
 namespace mputkowski\Locale;
 
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Cookie;
-use Illuminate\Support\Facades\App;
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class Locale
 {
     /**
      * The Repository instance.
-     * 
+     *
      * @var \Illuminate\Contracts\Config\Repository
      */
     private $config;
 
     /**
      * The language cookie.
-     * 
+     *
      * @var null|\Symfony\Component\HttpFoundation\Cookie
      */
     private $cookie = null;
 
     /**
      * The Request instance.
-     * 
+     *
      * @var \Illuminate\Http\Request
      */
     private $request;
 
     /**
      * Languages supported by user's browser.
-     * 
+     *
      * @var array
      */
     private $browserLanguages = [];
 
     /**
      * Create a new Locale instance.
-     * 
+     *
      * @param \Illuminate\Contracts\Config\Repository $config
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request                $request
      *
      * @return void
      */
@@ -49,9 +49,9 @@ class Locale
     {
         $config = $config->get('locale');
 
-        if (!is_array($config))
+        if (!is_array($config)) {
             throw new \Exception('Missing locale config');
-
+        }
         $this->config = $config;
         $this->request = $request;
 
@@ -94,7 +94,7 @@ class Locale
 
     /**
      * Get the language cookie.
-     * 
+     *
      * @return null|\Symfony\Component\HttpFoundation\Cookie
      */
     public function getCookie()
@@ -104,7 +104,7 @@ class Locale
 
     /**
      * Get the Request instance.
-     * 
+     *
      * @return \Illuminate\Http\Request
      */
     public function getRequest()
@@ -114,7 +114,7 @@ class Locale
 
     /**
      * Get current app language.
-     * 
+     *
      * @return string
      */
     public function getLocale()
@@ -124,7 +124,7 @@ class Locale
 
     /**
      * Set app language.
-     * 
+     *
      * @param null|string $locale
      *
      * @return void
@@ -139,23 +139,21 @@ class Locale
 
     /**
      * Check if app language is the same as value of language cookie.
-     * 
+     *
      * @return void
      */
     public function validate()
     {
         if ($this->cookie instanceof Cookie && $this->cookie->getValue() !== $this->getLocale()) {
             $this->setLocale($this->cookie->getValue());
-        }
-
-        elseif (!$this->cookie) {
+        } elseif (!$this->cookie) {
             $this->setLocale($this->auto ? $this->getPreferedLanguage() : null);
         }
     }
 
     /**
      * Load browser languages from http header.
-     * 
+     *
      * @return array
      */
     private function loadBrowserLanguages()
@@ -165,7 +163,7 @@ class Locale
         foreach ($locales as $locale) {
             $data = explode(';', $locale);
             array_push($languages, [
-                'locale' => $data[0],
+                'locale'     => $data[0],
                 'quality'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
             ]);
         }
@@ -175,7 +173,7 @@ class Locale
 
     /**
      * Get prefered language by comparing browser language and app languages.
-     * 
+     *
      * @return string
      */
     public function getPreferedLanguage()
@@ -189,12 +187,13 @@ class Locale
                 }
             }
         }
+
         return $this->langDirExists($locale) ? $locale : $this->default_locale;
     }
 
     /**
      * Get browser languages from http header.
-     * 
+     *
      * @return array
      */
     public function getBrowserLanguages()
@@ -204,9 +203,9 @@ class Locale
 
     /**
      * Create a new cookie instance.
-     * 
-     * @param  string $value
-     * 
+     *
+     * @param string $value
+     *
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
     public function makeCookie($value)
@@ -216,14 +215,15 @@ class Locale
 
     /**
      * Check if translation directory for specified language exists.
-     * 
-     * @param  string $path
-     * 
+     *
+     * @param string $path
+     *
      * @return bool
      */
     private function langDirExists($path)
     {
         $path = strtolower($path);
+
         return file_exists(app()->langPath().vsprintf('/%s', $path));
     }
 }

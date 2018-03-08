@@ -15,10 +15,10 @@ class MiddlewareTest extends AbstractTestCase
 
     public function test_middleware_validates_cookie()
     {
-        $response = (new VerifyLangCookie)->handle(new Request(), function () {
-            return new Response;
+        $response = (new VerifyLangCookie())->handle(new Request(), function () {
+            return new Response();
         });
-        
+
         $cookie = $response->headers->getCookies();
         $cookie = reset($cookie);
 

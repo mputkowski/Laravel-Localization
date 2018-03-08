@@ -1,4 +1,5 @@
 <?php
+
 namespace mputkowski\Tests\Locale;
 
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class LocaleTest extends AbstractTestCase
 
     public function test_get_browser_languages()
     {
-        $request = new Request;
+        $request = new Request();
         $request->headers->set('Accept-Language', 'en,en-US;q=0.9,de;q=0.8,pl;q=0.7');
         $locale = $this->getLocale($request);
 
