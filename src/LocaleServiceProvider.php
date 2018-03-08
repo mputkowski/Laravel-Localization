@@ -37,8 +37,8 @@ class LocaleServiceProvider extends ServiceProvider
 
         $this->app->alias('locale', LocaleFacade::class);
 
-        if (config('locale.route.enabled')) {
-            $route = config('locale.route.pattern');
+        if (config('locale.route.enabled', true)) {
+            $route = config('locale.route.pattern', '/lang/{lang}');
 
             $this->app['router']->get($route, function ($lang) {
                 $locale = $this->app['locale'];
