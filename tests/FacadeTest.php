@@ -1,6 +1,6 @@
 <?php
 
-namespace mputkowski\Tests\Locale\Unit;
+namespace mputkowski\Tests\Locale;
 
 use GrahamCampbell\TestBenchCore\FacadeTrait;
 use mputkowski\Locale\Facades\Locale as LocaleFacade;
@@ -12,7 +12,7 @@ class FacadeTest extends AbstractTestCase
 
     protected function getFacadeAccessor()
     {
-        return 'Locale';
+        return 'locale';
     }
 
     protected function getFacadeClass()

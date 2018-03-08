@@ -3,5 +3,9 @@
 return [
     'auto'        => true,
     'cookie_name' => 'lang',
-    'routes'      => true,
+    'default_locale' => 'en',
+    'route' => [
+        'enabled' => true,
+        'pattern' => '/lang/{lang}',
+    ],
 ];

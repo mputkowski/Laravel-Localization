@@ -2,28 +2,66 @@
 
 namespace mputkowski\Locale;
 
-use Cookie;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Cookie;
 use Illuminate\Support\Facades\App;
+use Illuminate\Contracts\Config\Repository as Config;
 
 class Locale
 {
     /**
-     * Locale config.
-     *
-     * @var string
+     * The Repository instance.
+     * 
+     * @var \Illuminate\Contracts\Config\Repository
      */
     private $config;
 
     /**
-     * Create a new instance.
-     *
-     * @param array $config
+     * The language cookie.
+     * 
+     * @var null|\Symfony\Component\HttpFoundation\Cookie
+     */
+    private $cookie = null;
+
+    /**
+     * The Request instance.
+     * 
+     * @var \Illuminate\Http\Request
+     */
+    private $request;
+
+    /**
+     * Languages supported by user's browser.
+     * 
+     * @var array
+     */
+    private $browserLanguages = [];
+
+    /**
+     * Create a new Locale instance.
+     * 
+     * @param \Illuminate\Contracts\Config\Repository $config
+     * @param \Illuminate\Http\Request $request
      *
      * @return void
      */
-    public function __construct(array $config = [])
+    public function __construct(Config $config, Request $request)
     {
+        $config = $config->get('locale');
+
+        if (!is_array($config))
+            throw new \Exception('Missing locale config');
+
         $this->config = $config;
+        $this->request = $request;
+
+        $cookie_value = $request->cookie($this->cookie_name);
+
+        if (is_string($cookie_value)) {
+            $this->cookie = $this->makeCookie($request->cookie($this->cookie_name));
+        }
+
+        $this->browserLanguages = $this->loadBrowserLanguages();
     }
 
     /**
@@ -44,7 +82,6 @@ class Locale
      * Set config variable.
      *
      * @param string $name
-     * @param mixed  $value
      *
      * @return void
      */
@@ -56,143 +93,137 @@ class Locale
     }
 
     /**
-     * Check if app language is the same as value of language cookie.
-     *
-     * @param Illuminate\Http\Request $request
-     *
-     * @return void
+     * Get the language cookie.
+     * 
+     * @return null|\Symfony\Component\HttpFoundation\Cookie
      */
-    public function verify($request)
+    public function getCookie()
     {
-        if (!$this->langCookieExists($request)) {
-            $this->setLanguage($this->auto ? $this->getPreferedLanguage() : 'default');
-        } elseif ($this->getCookie() !== App::getLocale()) {
-            App::setLocale($request->cookies->get($this->cookie_name));
-        }
+        return $this->cookie;
     }
 
     /**
-     * Set app language.
-     *
-     * @param string $lang
-     * @param bool   $return_cookie
-     *
-     * @return void|Symfony\Component\HttpFoundation\Cookie
+     * Get the Request instance.
+     * 
+     * @return \Illuminate\Http\Request
      */
-    public function setLanguage($lang = 'default', $return_cookie = false)
+    public function getRequest()
     {
-        $code = $lang === 'default' || !$this->langDirExists($lang) ? $this->default_locale : $lang;
-
-        App::setLocale($code);
-
-        if ($return_cookie) {
-            return $this->setCookie($lang);
-        }
-
-        Cookie::queue($this->setCookie($lang));
-    }
-
-    /**
-     * Set and return lang cookie.
-     *
-     * @param string $lang
-     *
-     * @return Symfony\Component\HttpFoundation\Cookie
-     */
-    public function setCookie($lang)
-    {
-        return cookie()->forever($this->cookie_name, $lang);
+        return $this->request;
     }
 
     /**
      * Get current app language.
-     *
+     * 
      * @return string
      */
-    public function getCurrentLanguage()
+    public function getLocale()
     {
-        return App::getLocale();
+        return app()->getLocale();
     }
 
     /**
-     * Get browser languages from http header.
+     * Set app language.
+     * 
+     * @param null|string $locale
      *
-     * @param null|string $header
-     *
+     * @return void
+     */
+    public function setLocale($locale = null)
+    {
+        $locale = $locale ?? $this->default_locale;
+
+        app()->setLocale($locale);
+        $this->cookie = $this->makeCookie($locale);
+    }
+
+    /**
+     * Check if app language is the same as value of language cookie.
+     * 
+     * @return void
+     */
+    public function validate()
+    {
+        if ($this->cookie instanceof Cookie && $this->cookie->getValue() !== $this->getLocale()) {
+            $this->setLocale($this->cookie->getValue());
+        }
+
+        elseif (!$this->cookie) {
+            $this->setLocale($this->auto ? $this->getPreferedLanguage() : null);
+        }
+    }
+
+    /**
+     * Load browser languages from http header.
+     * 
      * @return array
      */
-    public function getBrowserLanguages($header = null)
+    private function loadBrowserLanguages()
     {
-        $elements = explode(',', $header ?? request()->header('Accept-Language'));
-        $langs = [];
-
-        foreach ($elements as $element) {
-            $data = explode(';', $element);
-            array_push($langs, [
-                'lang' => $data[0],
-                'q'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
+        $locales = explode(',', $this->request->header('Accept-Language'));
+        $languages = [];
+        foreach ($locales as $locale) {
+            $data = explode(';', $locale);
+            array_push($languages, [
+                'locale' => $data[0],
+                'quality'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
             ]);
         }
 
-        return $langs;
+        return $languages;
     }
 
     /**
-     * Get language code by comparing browser language and app languages.
-     *
+     * Get prefered language by comparing browser language and app languages.
+     * 
      * @return string
      */
-    public function getPreferedLanguage($header = null)
+    public function getPreferedLanguage()
     {
-        //Browser's current language is in index 0
-        $lang = $this->getBrowserLanguages($header)[0]['lang'];
-
-        if (strpos($lang, '-') !== false) {
-            $codes = explode('-', $lang);
-
+        $locale = reset($this->browserLanguages)['locale'];
+        if (strpos($locale, '-') !== false) {
+            $codes = explode('-', $locale);
             foreach ($codes as $code) {
                 if ($this->langDirExists($code)) {
                     return $code;
                 }
             }
         }
-
-        return $this->langDirExists($lang) ? $lang : $this->default_locale;
+        return $this->langDirExists($locale) ? $locale : $this->default_locale;
     }
 
     /**
-     * Get language cookie value.
-     *
-     * @return string
+     * Get browser languages from http header.
+     * 
+     * @return array
      */
-    public function getCookie()
+    public function getBrowserLanguages()
     {
-        return Cookie::get($this->cookie_name);
+        return $this->browserLanguages;
     }
 
     /**
-     * Check if language cookie is set.
-     *
-     * @param Illuminate\Http\Request $request
-     *
+     * Create a new cookie instance.
+     * 
+     * @param  string $value
+     * 
+     * @return \Symfony\Component\HttpFoundation\Cookie
+     */
+    public function makeCookie($value)
+    {
+        return cookie()->forever($this->cookie_name, $value);
+    }
+
+    /**
+     * Check if translation directory for specified language exists.
+     * 
+     * @param  string $path
+     * 
      * @return bool
      */
-    public function langCookieExists($request)
+    private function langDirExists($path)
     {
-        return $request->cookies->has($this->cookie_name);
-    }
-
-    /**
-     * Check if app supports specified language.
-     *
-     * @param string $lang
-     *
-     * @return bool
-     */
-    private function langDirExists($lang)
-    {
-        $lang = strtolower($lang);
-
-        return file_exists(App::langPath().vsprintf('/%s', $lang));
+        $path = strtolower($path);
+        return file_exists(app()->langPath().vsprintf('/%s', $path));
     }
 }

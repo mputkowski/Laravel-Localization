@@ -1,6 +1,6 @@
 <?php
 
-namespace mputkowski\Locale\Http\Middleware;
+namespace mputkowski\Locale\Middleware;
 
 use Closure;
 use mputkowski\Locale\Facades\Locale;
@@ -17,8 +17,8 @@ class VerifyLangCookie
      */
     public function handle($request, Closure $next)
     {
-        Locale::verify($request);
+        Locale::validate();
 
-        return $next($request);
+        return $next($request)->cookie(Locale::getCookie());
     }
 }

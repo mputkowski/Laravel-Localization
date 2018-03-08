@@ -13,6 +13,6 @@ class Locale extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Locale';
+        return 'locale';
     }
 }

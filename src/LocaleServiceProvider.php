@@ -2,8 +2,9 @@
 
 namespace mputkowski\Locale;
 
-use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Container\Container;
 use mputkowski\Locale\Facades\Locale as LocaleFacade;
 
 class LocaleServiceProvider extends ServiceProvider
@@ -27,29 +28,25 @@ class LocaleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('Locale', function () {
-            $config = $this->getParameters();
+        $this->app->singleton('locale', function (Container $app) {
+            $config = $app['config'];
+            $request = Request::instance();
 
-            return new Locale($config);
+            return new Locale($config, $request);
         });
 
-        $this->app->alias('Locale', LocaleFacade::class);
+        $this->app->alias('locale', LocaleFacade::class);
 
-        if (config('locale.routes', true)) {
-            $this->app['router']->group(['namespace' => 'mputkowski\Locale\Http\Controllers'], function () {
-                require __DIR__.'/Http/routes.php';
-            });
+        if (config('locale.route.enabled')) {
+            $route = config('locale.route.pattern');
+
+            $this->app['router']->get($route, function ($lang) {
+                $locale = $this->app['locale'];
+                $locale->setLocale($lang);
+                $cookie = $locale->getCookie();
+                return back()->withCookie($cookie);
+            })->name('locale');
         }
-    }
-
-    protected function getParameters()
-    {
-        return [
-            'auto'           => config('locale.auto', true),
-            'cookie_name'    => config('locale.cookie_name', 'lang'),
-            'default_locale' => config('app.locale', 'en'),
-            'routes'         => config('locale.routes', true),
-        ];
     }
 
     /**
@@ -60,7 +57,7 @@ class LocaleServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'Locale',
+            'locale',
         ];
     }
 }
