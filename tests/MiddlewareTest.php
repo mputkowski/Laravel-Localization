@@ -8,7 +8,7 @@ use mputkowski\Locale\Middleware\VerifyLangCookie;
 
 class MiddlewareTest extends AbstractTestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
     }

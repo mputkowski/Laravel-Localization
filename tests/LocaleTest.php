@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 
 class LocaleTest extends AbstractTestCase
 {
-    public function setUp()
+    protected $locales = ['fr', 'de', 'pl'];
+
+    protected function setUp()
     {
         parent::setUp();
 
-        $path = app()->langPath().'/de';
+        foreach ($this->locales as $locale) {
+            $path = $this->langPath($locale);
 
-        if (!file_exists($path)) {
-            return mkdir($path);
+            if (!file_exists($path)) {
+                return mkdir($path);
+            }
         }
     }
 
@@ -21,11 +25,18 @@ class LocaleTest extends AbstractTestCase
     {
         parent::tearDown();
 
-        $path = app()->langPath().'/de';
+        foreach ($this->locales as $locale) {
+            $path = $this->langPath($locale);
 
-        if (file_exists($path)) {
-            return rmdir($path);
+            if (file_exists($path)) {
+                return rmdir($path);
+            }
         }
+    }
+
+    protected function langPath($locale)
+    {
+        return app()->langPath().vsprintf('/%s', $locale);
     }
 
     public function test_property_overloading()
@@ -52,11 +63,33 @@ class LocaleTest extends AbstractTestCase
         $this->assertEquals($arr1, $arr2);
     }
 
+    public function test_prefered_language()
+    {
+        $request = new Request();
+        $request->headers->set('Accept-Language', 'fr,de;q=0.9,pl;q=0.8');
+        $locale = $this->getLocale($request);
+
+        $lang = $locale->getPreferedLanguage();
+        $this->assertEquals('fr', $lang);
+    }
+
     public function test_set_lang_method()
     {
         $locale = $this->getLocale();
         $cookie = $locale->setLocale('de');
 
         $this->assertEquals('de', $locale->getLocale());
+    }
+
+    public function test_locale_route()
+    {
+        $request = Request::create('lang/pl', 'GET');
+        $route = last(app('router')->getRoutes()->get());
+
+        $response = $route->bind($request)->run();
+        $cookie = last($response->headers->getCookies());
+
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertEquals('pl', $cookie->getValue());
     }
 }
