@@ -18,7 +18,7 @@ class LocaleTest extends AbstractTestCase
             $path = $this->langPath($locale);
 
             if (!file_exists($path)) {
-                return mkdir($path);
+                mkdir($path);
             }
         }
     }
@@ -31,7 +31,7 @@ class LocaleTest extends AbstractTestCase
             $path = $this->langPath($locale);
 
             if (file_exists($path)) {
-                return rmdir($path);
+                rmdir($path);
             }
         }
     }
