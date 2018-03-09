@@ -48,6 +48,7 @@ class LocaleTest extends AbstractTestCase
     public function test_constructor_throws_exception_if_config_is_missing()
     {
         $config = new Repository();
+
         return new Locale($config, new Request());
     }
 
