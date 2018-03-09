@@ -2,11 +2,13 @@
 
 namespace mputkowski\Tests\Locale;
 
+use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
+use mputkowski\Locale\Locale;
 
 class LocaleTest extends AbstractTestCase
 {
-    protected $locales = ['fr', 'de', 'pl'];
+    protected $locales = ['de', 'fr', 'it', 'pl'];
 
     protected function setUp()
     {
@@ -39,11 +41,43 @@ class LocaleTest extends AbstractTestCase
         return app()->langPath().vsprintf('/%s', $locale);
     }
 
+    /**
+     * @expectedException Exception
+     * @expectedExceptionMessage Missing locale config
+     */
+    public function test_constructor_throws_exception_if_config_is_missing()
+    {
+        $config = new Repository();
+        return new Locale($config, new Request());
+    }
+
     public function test_property_overloading()
     {
         $locale = $this->getLocale();
         $locale->default_locale = 'zh';
         $this->assertEquals('zh', $locale->default_locale);
+    }
+
+    public function test_get_request_method_is_the_same_as_provided()
+    {
+        $request = new Request();
+        $request->headers->set('Accept-Language', 'pl,fr;q=0.8,de;q=0.7,en;q=0.6');
+        $request->cookies->set('lang', 'en');
+        $locale = $this->getLocale($request);
+
+        $this->assertEquals($request, $locale->getRequest());
+        $this->assertEquals($request->cookies->get('lang'), $locale->getCookie()->getValue());
+    }
+
+    public function test_validate_method_sets_locale()
+    {
+        $request = new Request();
+        $request->cookies->set('lang', 'it');
+        $locale = $this->getLocale($request);
+
+        $locale->validate();
+
+        $this->assertEquals('it', $locale->getLocale());
     }
 
     public function test_get_browser_languages()
