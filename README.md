@@ -23,7 +23,7 @@ Include middleware within the `web` group in `middlewareGroups` array (`app/Http
     //
     //
     //
-    \mputkowski\Locale\Http\Middleware\VerifyLangCookie::class,
+    \mputkowski\Locale\Middleware\VerifyLangCookie::class,
 ],
 ```
 **You don't have to register service provider and alias, this package uses Package Auto-Discovery.**
@@ -59,7 +59,7 @@ Include middleware within the `web` group in `middlewareGroups` array (`app/Http
     //
     //
     //
-    \mputkowski\Locale\Http\Middleware\VerifyLangCookie::class,
+    \mputkowski\Locale\Middleware\VerifyLangCookie::class,
 ],
 ```
 
@@ -67,12 +67,16 @@ Include middleware within the `web` group in `middlewareGroups` array (`app/Http
 Configuration is stored in `config/locale.php` file, it contains:
 * `auto` (type: `bool`, default: `true`)
 * `cookie_name` (type: `string`, default: `'lang'`)
-* `routes` (type: `bool`, default: `true`)
+* `default_locale` (type: `string`, default: `'en'`)
+
+`route`
+* `enabled` (type: `bool`, default: `true`)
+* `pattern` (type: `string`, default: `/lang/{lang}`)
 
 ### Auto-detection
 If `auto` is set to `true`, app will automatically detect client's language. Directories in `resources/lang` will be compared with client's `Accept-Language` header. If header doesn't match with app's locales, language will be set to default (value of `locale` in `config/app.php`). 
 
-### Routes
+### Route
 This package also provides routes for quick language change (url: `/lang/{lang}`, example `/lang/en`).
 
 ## Contributing
