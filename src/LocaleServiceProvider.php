@@ -46,7 +46,7 @@ class LocaleServiceProvider extends ServiceProvider
                 $cookie = $locale->getCookie();
 
                 return back()->withCookie($cookie);
-            })->name('locale');
+            })->middleware('web')->name('locale');
         }
     }
 
