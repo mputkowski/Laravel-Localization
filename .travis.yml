@@ -9,6 +9,7 @@ before_install:
   - travis_retry composer self-update
   
 install:
+  - composer require "orchestra/testbench=~3.5" --dev --no-update
   - travis_retry composer install -vvv --no-interaction --no-suggest
 
 script:
