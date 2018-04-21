@@ -10,7 +10,7 @@ before_install:
   
 install:
   - composer require "orchestra/testbench=~3.5" --dev --no-update
-  - travis_retry composer install --no-interaction --no-suggest
+  - travis_retry composer install --no-interaction --no-suggest --prefer-dist --prefer-stable
 
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
@@ -20,4 +20,4 @@ after_success:
 
 cache:
   directories:
-  - vendor
+  - $HOME/.composer/cache
