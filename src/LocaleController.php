@@ -8,8 +8,8 @@ use mputkowski\Locale\Facades\Locale;
 class LocaleController extends Controller
 {
     /**
-     * Set language
-     * 
+     * Set language.
+     *
      * @param string $lang
      *
      * @return \Illuminate\Http\RedirectResponse
