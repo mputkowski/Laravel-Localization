@@ -40,13 +40,10 @@ class LocaleServiceProvider extends ServiceProvider
         if (config('locale.route.enabled', true)) {
             $route = config('locale.route.pattern', '/lang/{lang}');
 
-            $this->app['router']->get($route, function ($lang) {
-                $locale = $this->app['locale'];
-                $locale->setLocale($lang);
-                $cookie = $locale->getCookie();
-
-                return back()->withCookie($cookie);
-            })->middleware('web')->name('locale');
+            $this->app['router']
+                ->get($route, '\\mputkowski\\Locale\\LocaleController@setLanguage')
+                ->middleware('web')
+                ->name('locale');
         }
     }
 
