@@ -3,6 +3,7 @@
 namespace mputkowski\Locale\Middleware;
 
 use Closure;
+use Illuminate\Http\Response;
 use mputkowski\Locale\Facades\Locale;
 
 class VerifyLangCookie
@@ -17,8 +18,12 @@ class VerifyLangCookie
      */
     public function handle($request, Closure $next)
     {
-        Locale::validate();
+        if ($next($request) instanceof Response)
+        {
+            Locale::validate();
+            return $next($request)->cookie(Locale::getCookie());
+        }
 
-        return $next($request)->cookie(Locale::getCookie());
+        return $next($request);
     }
 }
