@@ -15,8 +15,8 @@ class MiddlewareTest extends AbstractTestCase
 
     public function test_middleware_validates_cookie()
     {
-        $response = (new VerifyLangCookie())->handle(new Request, function () {
-            return new Response;
+        $response = (new VerifyLangCookie())->handle(new Request(), function () {
+            return new Response();
         });
 
         $cookie = $response->headers->getCookies();
@@ -27,8 +27,8 @@ class MiddlewareTest extends AbstractTestCase
 
     public function test_middleware_handles_all_types_of_response()
     {
-        $response = (new VerifyLangCookie())->handle(new Request, function () {
-            return new FooBar;
+        $response = (new VerifyLangCookie())->handle(new Request(), function () {
+            return new FooBar();
         });
 
         $this->assertInstanceOf(FooBar::class, $response);
@@ -37,5 +37,4 @@ class MiddlewareTest extends AbstractTestCase
 
 class FooBar
 {
-
 }

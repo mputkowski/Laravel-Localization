@@ -49,7 +49,7 @@ class LocaleTest extends AbstractTestCase
     {
         $config = new Repository();
 
-        return new Locale($config, new Request);
+        return new Locale($config, new Request());
     }
 
     public function test_property_overloading()
@@ -72,7 +72,7 @@ class LocaleTest extends AbstractTestCase
 
     public function test_validate_method_sets_locale()
     {
-        $request = new Request;
+        $request = new Request();
         $request->cookies->set('lang', 'it');
         $locale = $this->getLocale($request);
 
@@ -83,7 +83,7 @@ class LocaleTest extends AbstractTestCase
 
     public function test_get_browser_languages()
     {
-        $request = new Request;
+        $request = new Request();
         $request->headers->set('Accept-Language', 'en,en-US;q=0.9,de;q=0.8,pl;q=0.7');
         $locale = $this->getLocale($request);
 
@@ -100,7 +100,7 @@ class LocaleTest extends AbstractTestCase
 
     public function test_prefered_language()
     {
-        $request = new Request;
+        $request = new Request();
         $request->headers->set('Accept-Language', 'fr,de;q=0.9,pl;q=0.8');
         $locale = $this->getLocale($request);
 
