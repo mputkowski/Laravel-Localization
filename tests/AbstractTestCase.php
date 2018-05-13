@@ -31,9 +31,9 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
     protected function getLocale($request = null)
     {
         $data = require __DIR__.'/../config/locale.php';
-        $config = new Repository;
+        $config = new Repository();
         $config->set('locale', $data);
 
-        return new Locale($config, $request ?? new Request);
+        return new Locale($config, $request ?? new Request());
     }
 }
