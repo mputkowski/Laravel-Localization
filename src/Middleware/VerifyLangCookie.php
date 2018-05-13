@@ -18,9 +18,9 @@ class VerifyLangCookie
      */
     public function handle($request, Closure $next)
     {
-        if ($next($request) instanceof Response)
-        {
+        if ($next($request) instanceof Response) {
             Locale::validate();
+
             return $next($request)->cookie(Locale::getCookie());
         }
 
