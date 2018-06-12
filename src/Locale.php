@@ -69,7 +69,7 @@ class Locale
      *
      * @param string $name
      *
-     * @return mixed
+     * @return mixed|void
      */
     public function __get($name)
     {
