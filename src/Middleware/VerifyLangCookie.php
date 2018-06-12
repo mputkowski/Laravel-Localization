@@ -23,8 +23,8 @@ class VerifyLangCookie
 
         if ($response instanceof Response) {
             return $response->cookie(Locale::getCookie());
-        }
-        else
+        } else {
             return $response;
+        }
     }
 }
