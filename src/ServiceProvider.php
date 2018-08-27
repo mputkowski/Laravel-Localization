@@ -43,7 +43,7 @@ class ServiceProvider extends BaseServiceProvider
                 $localization = $this->app->make('Localization');
                 $localization->setLocale($lang);
                 $cookie = $localization->getCookie();
-        
+
                 return back()->withCookie($cookie);
             };
 
