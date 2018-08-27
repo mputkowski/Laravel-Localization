@@ -1,58 +1,58 @@
-# Laravel Locale
-[![Travis branch](https://img.shields.io/travis/mputkowski/laravel-locale/master.svg?style=flat-square)](https://travis-ci.org/mputkowski/laravel-locale)
+# Laravel Localization
+[![Travis branch](https://img.shields.io/travis/mputkowski/Laravel-Localization/master.svg?style=flat-square)](https://travis-ci.org/mputkowski/Laravel-Localization)
 [![StyleCI](https://styleci.io/repos/118966076/shield)](https://styleci.io/repos/118966076)
-[![Codecov](https://img.shields.io/codecov/c/github/mputkowski/laravel-locale.svg?style=flat-square)](https://codecov.io/gh/mputkowski/laravel-locale)
-[![Latest Stable Version](https://img.shields.io/packagist/v/mputkowski/laravel-locale.svg?style=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
-[![Total Downloads](https://img.shields.io/packagist/dt/mputkowski/laravel-locale.svg?style=flat-square)](https://packagist.org/packages/mputkowski/laravel-locale)
-[![License](https://img.shields.io/github/license/mputkowski/laravel-locale.svg?style=flat-square)](https://github.com/mputkowski/laravel-locale/blob/master/LICENSE)
+[![Codecov](https://img.shields.io/codecov/c/github/mputkowski/Laravel-Localization.svg?style=flat-square)](https://codecov.io/gh/mputkowski/Laravel-Localization)
+[![Latest Stable Version](https://img.shields.io/packagist/v/mputkowski/Laravel-Localization.svg?style=flat-square)](https://packagist.org/packages/mputkowski/Laravel-Localization)
+[![Total Downloads](https://img.shields.io/packagist/dt/mputkowski/Laravel-Localization.svg?style=flat-square)](https://packagist.org/packages/mputkowski/Laravel-Localization)
+[![License](https://img.shields.io/github/license/mputkowski/Laravel-Localization.svg?style=flat-square)](https://github.com/mputkowski/Laravel-Localization/blob/master/LICENSE)
 
 Powerful Localization for Laravel 5
 
 ## Installation
 Add package to composer.json
 ```
-composer require mputkowski/laravel-locale
+composer require mputkowski/laravel-localization
 ```
 Publish package's config file
 ```
-php artisan vendor:publish --provider="mputkowski\Locale\LocaleServiceProvider"
+php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
 ```
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
 ```php
 'web' => [
-    \mputkowski\Locale\Middleware\VerifyLangCookie::class,
+    \mputkowski\Localization\Middleware\VerifyLangCookie::class,
 ],
 ```
 **You don't have to register service provider and alias, this package uses Package Auto-Discovery.**
 
 ### Manual installation
 ```
-composer require mputkowski/laravel-locale
+composer require mputkowski/laravel-localization
 ```
 In `config/app.php`, add the following to `providers` array:
 ```php
 'providers' => [
-    mputkowski\Locale\LocaleServiceProvider::class,
+    mputkowski\Localization\ServiceProvider::class,
 ],
 ```
 And register alias in `aliases` array:
 ```php
 'aliases' => [
-    'Locale' => mputkowski\Locale\Facades\Locale::class,
+    'Localization' => mputkowski\Localization\Facades\Localization::class,
 ],
 ```
 ```
-php artisan vendor:publish --provider="mputkowski\Locale\LocaleServiceProvider"
+php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
 ```
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
 ```php
 'web' => [
-    \mputkowski\Locale\Middleware\VerifyLangCookie::class,
+    \mputkowski\Localization\Middleware\VerifyLangCookie::class,
 ],
 ```
 
 ## Configuration
-Configuration is stored in `config/locale.php` file.
+Configuration is stored in `config/localization.php` file.
 
 |Key|Type|Default|
 |---|---|---|
