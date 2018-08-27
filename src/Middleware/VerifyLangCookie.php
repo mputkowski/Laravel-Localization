@@ -1,10 +1,10 @@
 <?php
 
-namespace mputkowski\Locale\Middleware;
+namespace mputkowski\Localization\Middleware;
 
 use Closure;
 use Illuminate\Http\Response;
-use mputkowski\Locale\Facades\Locale;
+use mputkowski\Localization\Facades\Localization;
 
 class VerifyLangCookie
 {
@@ -18,11 +18,11 @@ class VerifyLangCookie
      */
     public function handle($request, Closure $next)
     {
-        Locale::validate();
+        Localization::validate();
         $response = $next($request);
 
         if ($response instanceof Response) {
-            return $response->cookie(Locale::getCookie());
+            return $response->cookie(Localization::getCookie());
         } else {
             return $response;
         }

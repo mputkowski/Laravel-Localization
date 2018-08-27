@@ -1,13 +1,12 @@
 <?php
 
-namespace mputkowski\Locale;
+namespace mputkowski\Localization;
 
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Symfony\Component\HttpFoundation\Cookie;
 
-class Locale
+class Localization
 {
     /**
      * The Repository instance.
@@ -38,7 +37,7 @@ class Locale
     private $browserLanguages = [];
 
     /**
-     * Create a new Locale instance.
+     * Create a new Localization instance.
      *
      * @param \Illuminate\Contracts\Config\Repository $config
      * @param \Illuminate\Http\Request                $request
@@ -47,10 +46,10 @@ class Locale
      */
     public function __construct(Config $config, Request $request)
     {
-        $config = $config->get('locale');
+        $config = $config->get('localization');
 
         if (!is_array($config)) {
-            throw new \Exception('Missing locale config');
+            throw new \Exception('Missing localization config');
         }
         $this->config = $config;
         $this->request = $request;

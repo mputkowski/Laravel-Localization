@@ -1,12 +1,12 @@
 <?php
 
-namespace mputkowski\Tests\Locale;
+namespace mputkowski\Tests\Localization;
 
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
-use mputkowski\Locale\Locale;
+use mputkowski\Localization\Localization;
 
-class LocaleTest extends AbstractTestCase
+class LocalizationTest extends AbstractTestCase
 {
     protected $locales = ['de', 'fr', 'it', 'pl'];
 
@@ -43,13 +43,13 @@ class LocaleTest extends AbstractTestCase
 
     /**
      * @expectedException Exception
-     * @expectedExceptionMessage Missing locale config
+     * @expectedExceptionMessage Missing localization config
      */
     public function test_constructor_throws_exception_if_config_is_missing()
     {
         $config = new Repository();
 
-        return new Locale($config, new Request());
+        return new Localization($config, new Request());
     }
 
     public function test_property_overloading()

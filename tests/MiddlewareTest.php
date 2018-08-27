@@ -1,10 +1,10 @@
 <?php
 
-namespace mputkowski\Tests\Locale;
+namespace mputkowski\Tests\Localization;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use mputkowski\Locale\Middleware\VerifyLangCookie;
+use mputkowski\Localization\Middleware\VerifyLangCookie;
 
 class MiddlewareTest extends AbstractTestCase
 {

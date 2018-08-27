@@ -1,10 +1,10 @@
 <?php
 
-namespace mputkowski\Locale\Facades;
+namespace mputkowski\Localization\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Locale extends Facade
+class Localization extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class Locale extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'locale';
+        return 'Localization';
     }
 }
