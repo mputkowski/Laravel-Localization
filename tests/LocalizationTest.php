@@ -98,13 +98,13 @@ class LocalizationTest extends AbstractTestCase
         $this->assertEquals($arr1, $arr2);
     }
 
-    public function test_prefered_language()
+    public function test_preferred_language()
     {
         $request = new Request();
         $request->headers->set('Accept-Language', 'fr,de;q=0.9,pl;q=0.8');
         $locale = $this->getLocale($request);
 
-        $lang = $locale->getPreferedLanguage();
+        $lang = $locale->getPreferredLanguage();
         $this->assertEquals('fr', $lang);
     }
 

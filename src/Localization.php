@@ -146,7 +146,7 @@ class Localization
         if ($this->cookie instanceof Cookie && $this->cookie->getValue() !== $this->getLocale()) {
             $this->setLocale($this->cookie->getValue());
         } elseif (!$this->cookie) {
-            $this->setLocale($this->auto ? $this->getPreferedLanguage() : null);
+            $this->setLocale($this->auto ? $this->getPreferredLanguage() : null);
         }
     }
 
@@ -171,11 +171,11 @@ class Localization
     }
 
     /**
-     * Get prefered language by comparing browser language and app languages.
+     * Get preferred language by comparing browser language and app languages.
      *
      * @return string
      */
-    public function getPreferedLanguage()
+    public function getPreferredLanguage()
     {
         $locale = reset($this->browserLanguages)['locale'];
         if (strpos($locale, '-') !== false) {
