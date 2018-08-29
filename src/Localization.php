@@ -5,6 +5,7 @@ namespace mputkowski\Localization;
 use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Cookie;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class Localization
 {
@@ -49,7 +50,7 @@ class Localization
         $config = $config->get('localization');
 
         if (!is_array($config)) {
-            throw new \Exception('Missing localization config');
+            throw new FileNotFoundException('Missing localization config');
         }
         $this->config = $config;
         $this->request = $request;
