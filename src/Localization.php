@@ -3,9 +3,9 @@
 namespace mputkowski\Localization;
 
 use Illuminate\Contracts\Config\Repository as Config;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Cookie;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class Localization
 {
