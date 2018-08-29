@@ -54,9 +54,9 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Get callback for locale route
+     * Get callback for locale route.
      *
-     * @return callback
+     * @return callable
      */
     private function getRouteCallback()
     {
@@ -70,7 +70,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Register route for locale change
+     * Register route for locale change.
      *
      * @return void
      */
