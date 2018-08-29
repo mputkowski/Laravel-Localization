@@ -34,23 +34,10 @@ class ServiceProvider extends BaseServiceProvider
             return new Localization($config, $request);
         });
 
-        $this->app->alias('Localization', LocalizationFacade::class);
+        $this->app->alias(Localization::class, LocalizationFacade::class);
 
         if (config('localization.route.enabled', true)) {
-            $route = config('localization.route.pattern', '/lang/{lang}');
-
-            $callback = function ($lang) {
-                $localization = $this->app->make('Localization');
-                $localization->setLocale($lang);
-                $cookie = $localization->getCookie();
-
-                return back()->withCookie($cookie);
-            };
-
-            $this->app['router']
-                ->get($route, $callback)
-                ->middleware('web')
-                ->name('localization');
+            $this->registerRoute();
         }
     }
 
@@ -64,5 +51,36 @@ class ServiceProvider extends BaseServiceProvider
         return [
             'Localization',
         ];
+    }
+
+    /**
+     * Get callback for locale route
+     *
+     * @return callback
+     */
+    private function getRouteCallback()
+    {
+        return function ($lang) {
+            $localization = app('Localization');
+            $localization->setLocale($lang);
+            $cookie = $localization->getCookie();
+
+            return back()->withCookie($cookie);
+        };
+    }
+
+    /**
+     * Register route for locale change
+     *
+     * @return void
+     */
+    private function registerRoute()
+    {
+        $route = config('localization.route.pattern', '/lang/{lang}');
+
+        $this->app['router']
+            ->get($route, $this->getRouteCallback())
+            ->middleware('web')
+            ->name('localization');
     }
 }
