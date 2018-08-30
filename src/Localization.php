@@ -31,13 +31,6 @@ class Localization
     private $request;
 
     /**
-     * Languages supported by user's browser.
-     *
-     * @var array
-     */
-    private $browserLanguages = [];
-
-    /**
      * Create a new Localization instance.
      *
      * @param \Illuminate\Contracts\Config\Repository $config
@@ -47,48 +40,18 @@ class Localization
      */
     public function __construct(Config $config, Request $request)
     {
-        $config = $config->get('localization');
-
-        if (!is_array($config)) {
+        if (!$config->has('localization')) {
             throw new FileNotFoundException('Missing localization config');
         }
+        
         $this->config = $config;
         $this->request = $request;
 
-        $cookie_value = $request->cookie($this->cookie_name);
+        $cookie_name = $this->config->get('localization.cookie_name');
+        $cookie_value = $request->cookie($cookie_name);
 
         if (is_string($cookie_value)) {
-            $this->cookie = $this->makeCookie($request->cookie($this->cookie_name));
-        }
-
-        $this->browserLanguages = $this->loadBrowserLanguages();
-    }
-
-    /**
-     * Get config variable.
-     *
-     * @param string $name
-     *
-     * @return mixed|void
-     */
-    public function __get($name)
-    {
-        if (array_key_exists($name, $this->config)) {
-            return $this->config[$name];
-        }
-    }
-
-    /**
-     * Set config variable.
-     *
-     * @param string $name
-     *
-     * @return void
-     */
-    public function __set($name, $value)
-    {
-        if (array_key_exists($name, $this->config)) {
-            $this->config[$name] = $value;
+            $this->cookie = $this->makeCookie($request->cookie($cookie_name));
         }
     }
 
@@ -131,7 +94,7 @@ class Localization
      */
     public function setLocale($locale = null)
     {
-        $locale = $locale ?? $this->default_locale;
+        $locale = $locale ?? $this->config->get('localization.default_locale');
 
         app()->setLocale($locale);
         $this->cookie = $this->makeCookie($locale);
@@ -147,28 +110,8 @@ class Localization
         if ($this->cookie instanceof Cookie && $this->cookie->getValue() !== $this->getLocale()) {
             $this->setLocale($this->cookie->getValue());
         } elseif (!$this->cookie) {
-            $this->setLocale($this->auto ? $this->getPreferredLanguage() : null);
+            $this->setLocale($this->config->get('localization.auto') ? $this->getPreferredLanguage() : null);
         }
-    }
-
-    /**
-     * Load browser languages from http header.
-     *
-     * @return array
-     */
-    private function loadBrowserLanguages()
-    {
-        $locales = explode(',', $this->request->header('Accept-Language'));
-        $languages = [];
-        foreach ($locales as $locale) {
-            $data = explode(';', $locale);
-            array_push($languages, [
-                'locale'     => $data[0],
-                'quality'    => (isset($data[1])) ? (float) str_replace('q=', '', $data[1]) : 1.0,
-            ]);
-        }
-
-        return $languages;
     }
 
     /**
@@ -178,27 +121,8 @@ class Localization
      */
     public function getPreferredLanguage()
     {
-        $locale = reset($this->browserLanguages)['locale'];
-        if (strpos($locale, '-') !== false) {
-            $codes = explode('-', $locale);
-            foreach ($codes as $code) {
-                if ($this->langDirExists($code)) {
-                    return $code;
-                }
-            }
-        }
-
-        return $this->langDirExists($locale) ? $locale : $this->default_locale;
-    }
-
-    /**
-     * Get browser languages from http header.
-     *
-     * @return array
-     */
-    public function getBrowserLanguages()
-    {
-        return $this->browserLanguages;
+        $locales = $this->getAvailableLocales();
+        return $this->request->getPreferredLanguage($locales);
     }
 
     /**
@@ -210,20 +134,16 @@ class Localization
      */
     public function makeCookie($value)
     {
-        return cookie()->forever($this->cookie_name, $value);
+        return cookie()->forever($this->config->get('localization.cookie_name'), $value);
     }
 
     /**
-     * Check if translation directory for specified language exists.
+     * Get available locales
      *
-     * @param string $path
-     *
-     * @return bool
+     * @return array
      */
-    private function langDirExists($path)
+    private function getAvailableLocales()
     {
-        $path = strtolower($path);
-
-        return file_exists(app()->langPath().vsprintf('/%s', $path));
+        return array_diff(scandir(app()->langPath()), array('..', '.'));
     }
 }

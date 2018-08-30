@@ -52,13 +52,6 @@ class LocalizationTest extends AbstractTestCase
         return new Localization($config, new Request());
     }
 
-    public function test_property_overloading()
-    {
-        $locale = $this->getLocale();
-        $locale->default_locale = 'zh';
-        $this->assertEquals('zh', $locale->default_locale);
-    }
-
     public function test_get_request_method_is_the_same_as_provided()
     {
         $request = new Request();
@@ -79,23 +72,6 @@ class LocalizationTest extends AbstractTestCase
         $locale->validate();
 
         $this->assertEquals('it', $locale->getLocale());
-    }
-
-    public function test_get_browser_languages()
-    {
-        $request = new Request();
-        $request->headers->set('Accept-Language', 'en,en-US;q=0.9,de;q=0.8,pl;q=0.7');
-        $locale = $this->getLocale($request);
-
-        $arr1 = $locale->getBrowserLanguages();
-        $arr2 = [
-            ['locale' => 'en', 'quality' => 1.0],
-            ['locale' => 'en-US', 'quality' => 0.9],
-            ['locale' => 'de', 'quality' => 0.8],
-            ['locale' => 'pl', 'quality' => 0.7],
-        ];
-
-        $this->assertEquals($arr1, $arr2);
     }
 
     public function test_preferred_language()
