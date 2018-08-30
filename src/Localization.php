@@ -43,7 +43,7 @@ class Localization
         if (!$config->has('localization')) {
             throw new FileNotFoundException('Missing localization config');
         }
-        
+
         $this->config = $config;
         $this->request = $request;
 
@@ -122,6 +122,7 @@ class Localization
     public function getPreferredLanguage()
     {
         $locales = $this->getAvailableLocales();
+
         return $this->request->getPreferredLanguage($locales);
     }
 
@@ -138,12 +139,12 @@ class Localization
     }
 
     /**
-     * Get available locales
+     * Get available locales.
      *
      * @return array
      */
     private function getAvailableLocales()
     {
-        return array_diff(scandir(app()->langPath()), array('..', '.'));
+        return array_diff(scandir(app()->langPath()), ['..', '.']);
     }
 }
