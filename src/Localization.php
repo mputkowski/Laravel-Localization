@@ -121,8 +121,9 @@ class Localization
      */
     public function getPreferredLanguage()
     {
-        if ($this->request->headers->has('Accept-Language') === false)
+        if ($this->request->headers->has('Accept-Language') === false) {
             return $this->config->get('localization.default_locale');
+        }
 
         $locales = $this->getAvailableLocales();
 
