@@ -103,4 +103,14 @@ class LocalizationTest extends AbstractTestCase
         $this->assertEquals(302, $response->getStatusCode());
         $this->assertEquals('pl', $cookie->getValue());
     }
+
+    public function test_handling_missing_accept_language_header()
+    {
+        $request = new Request();
+
+        $locale = $this->getLocale($request);
+        $lang = $locale->getPreferredLanguage();
+
+        $this->assertEquals('en', $lang);
+    }
 }

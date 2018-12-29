@@ -121,6 +121,9 @@ class Localization
      */
     public function getPreferredLanguage()
     {
+        if ($this->request->headers->has('Accept-Language') === false)
+            return $this->config->get('localization.default_locale');
+
         $locales = $this->getAvailableLocales();
 
         return $this->request->getPreferredLanguage($locales);
@@ -145,6 +148,6 @@ class Localization
      */
     private function getAvailableLocales()
     {
-        return array_diff(scandir(app()->langPath()), ['..', '.']);
+        return array_values(array_diff(scandir(app()->langPath()), ['..', '.']));
     }
 }
