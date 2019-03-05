@@ -64,7 +64,7 @@ Configuration is stored in `config/localization.php` file.
 |pattern|string|`/lang/{lang}`|
 
 ### Auto-detection
-If `auto` is set to `true`, app will automatically detect client's language. Directories in `resources/lang` will be compared with client's `Accept-Language` header. If header doesn't match with app's locales, language will be set to default (value of `locale` in `config/app.php`). 
+If `auto` is set to `true`, app will automatically detect client's language. Directories in `resources/lang` will be compared with client's `Accept-Language` header. If header doesn't match with app's locales, language will be set to default. 
 
 ### Route
 This package also provides routes for quick language change (url: `/lang/{lang}`, example `/lang/en`).
@@ -77,7 +77,7 @@ This project is open-sourced software licensed under the [MIT license](http://op
 ```
 MIT License
 
-Copyright (c) 2018 Michał Putkowski
+Copyright (c) 2018 - 2019 Michał Putkowski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
