@@ -10,7 +10,7 @@ class LocalizationTest extends AbstractTestCase
 {
     protected $locales = ['de', 'fr', 'it', 'pl'];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -23,7 +23,7 @@ class LocalizationTest extends AbstractTestCase
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 
