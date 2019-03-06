@@ -17,7 +17,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('localization', [
+        $app->config->set('localization', [
             'auto'           => true,
             'cookie_name'    => 'lang',
             'default_locale' => 'en',
