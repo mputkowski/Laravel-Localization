@@ -36,6 +36,26 @@ matrix:
       env:
         - LARAVEL_VERSION=5.8.*
         - PHPUNIT_VERSION=^8.0
+    - php: 7.2
+      env:
+        - LARAVEL_VERSION=6.0.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.2
+      env:
+        - LARAVEL_VERSION=6.1.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.2
+      env:
+        - LARAVEL_VERSION=6.2.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.2
+      env:
+        - LARAVEL_VERSION=6.3.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.2
+      env:
+        - LARAVEL_VERSION=6.4.*
+        - PHPUNIT_VERSION=^8.0
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.5.*
@@ -51,6 +71,26 @@ matrix:
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.8.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.3
+      env:
+        - LARAVEL_VERSION=6.0.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.3
+      env:
+        - LARAVEL_VERSION=6.1.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.3
+      env:
+        - LARAVEL_VERSION=6.2.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.3
+      env:
+        - LARAVEL_VERSION=6.3.*
+        - PHPUNIT_VERSION=^8.0
+    - php: 7.3
+      env:
+        - LARAVEL_VERSION=6.4.*
         - PHPUNIT_VERSION=^8.0
 
 before_install:
