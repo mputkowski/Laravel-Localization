@@ -77,7 +77,7 @@ This project is open-sourced software licensed under the [MIT license](http://op
 ```
 MIT License
 
-Copyright (c) 2018 - 2019 Michał Putkowski
+Copyright (c) 2018 - 2020 Michał Putkowski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
