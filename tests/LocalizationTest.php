@@ -5,6 +5,7 @@ namespace mputkowski\Tests\Localization;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
 use mputkowski\Localization\Localization;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class LocalizationTest extends AbstractTestCase
 {
@@ -41,15 +42,14 @@ class LocalizationTest extends AbstractTestCase
         return app()->langPath().vsprintf('/%s', $locale);
     }
 
-    /**
-     * @expectedException \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @expectedExceptionMessage Missing localization config
-     */
     public function test_constructor_throws_exception_if_config_is_missing()
     {
         $config = new Repository();
 
-        return new Localization($config, new Request());
+        $localization = new Localization($config, new Request());
+        
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('Missing localization config');
     }
 
     public function test_get_request_method_is_the_same_as_provided()
