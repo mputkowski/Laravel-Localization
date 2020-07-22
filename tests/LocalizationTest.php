@@ -3,9 +3,9 @@
 namespace mputkowski\Tests\Localization;
 
 use Illuminate\Config\Repository;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use mputkowski\Localization\Localization;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class LocalizationTest extends AbstractTestCase
 {
@@ -46,7 +46,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Missing localization config');
- 
+
         $config = new Repository();
 
         $localization = new Localization($config, new Request());
