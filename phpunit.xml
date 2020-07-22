@@ -12,14 +12,13 @@
         stopOnFailure="false"
         stopOnIncomplete="false"
         stopOnSkipped="false"
-        syntaxCheck="true"
         timeoutForLargeTests="60"
         timeoutForMediumTests="10"
         timeoutForSmallTests="1"
         verbose="false"
         >
     <testsuites>
-        <testsuite>
+        <testsuite name="Test">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
