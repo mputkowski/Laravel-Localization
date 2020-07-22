@@ -44,12 +44,12 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_constructor_throws_exception_if_config_is_missing()
     {
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('Missing localization config');
+ 
         $config = new Repository();
 
         $localization = new Localization($config, new Request());
-        
-        $this->expectException(FileNotFoundException::class);
-        $this->expectExceptionMessage('Missing localization config');
     }
 
     public function test_get_request_method_is_the_same_as_provided()
