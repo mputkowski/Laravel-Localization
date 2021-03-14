@@ -55,7 +55,7 @@ before_install:
   - composer require "laravel/framework:${LARAVEL_VERSION}" --no-update -n
 
 install:
-  - travis_retry composer install --no-interaction --no-suggest --prefer-dist
+  - COMPOSER_MEMORY_LIMIT=-1 travis_retry composer install --no-interaction --no-suggest --prefer-dist
 
 script:
   - XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml
