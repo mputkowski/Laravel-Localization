@@ -7,7 +7,7 @@ jobs:
     - php: 7.1
       env:
         - LARAVEL_VERSION=5.5.*
-        - PHPUNIT_VERSION=^6.5
+        - PHPUNIT_VERSION=^7.5
     - php: 7.1
       env:
         - LARAVEL_VERSION=5.6.*
@@ -23,7 +23,7 @@ jobs:
     - php: 7.2
       env:
         - LARAVEL_VERSION=5.5.*
-        - PHPUNIT_VERSION=^6.5
+        - PHPUNIT_VERSION=^7.5
     - php: 7.2
       env:
         - LARAVEL_VERSION=5.6.*
@@ -43,7 +43,7 @@ jobs:
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.5.*
-        - PHPUNIT_VERSION=^6.5
+        - PHPUNIT_VERSION=^7.5
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.6.*
@@ -74,7 +74,7 @@ install:
   - travis_retry composer install --no-interaction --no-suggest --prefer-dist
 
 script:
-  - vendor/bin/phpunit --coverage-clover=coverage.xml
+  - XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage.xml
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
