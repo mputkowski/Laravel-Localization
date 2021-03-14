@@ -4,72 +4,56 @@ dist: trusty
 
 jobs:
   include:
-    - php: 7.1
-      env:
-        - LARAVEL_VERSION=5.5.*
-        - PHPUNIT_VERSION=^7.5
-    - php: 7.1
-      env:
-        - LARAVEL_VERSION=5.6.*
-        - PHPUNIT_VERSION=^7.5
-    - php: 7.1
-      env:
-        - LARAVEL_VERSION=5.7.*
-        - PHPUNIT_VERSION=^7.5
-    - php: 7.1
-      env:
-        - LARAVEL_VERSION=5.8.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.2
       env:
         - LARAVEL_VERSION=5.5.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.2
       env:
         - LARAVEL_VERSION=5.6.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.2
       env:
         - LARAVEL_VERSION=5.7.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.2
       env:
         - LARAVEL_VERSION=5.8.*
-        - PHPUNIT_VERSION=^8.0
     - php: 7.2
       env:
         - LARAVEL_VERSION=^6.0
-        - PHPUNIT_VERSION=^8.0
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.5.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.6.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.7.*
-        - PHPUNIT_VERSION=^7.5
     - php: 7.3
       env:
         - LARAVEL_VERSION=5.8.*
-        - PHPUNIT_VERSION=^8.0
     - php: 7.3
       env:
         - LARAVEL_VERSION=^6.0
-        - PHPUNIT_VERSION=^8.0
-    - php: 7.3
+    - php: 7.4
+      env:
+        - LARAVEL_VERSION=5.5.*
+    - php: 7.4
+      env:
+        - LARAVEL_VERSION=5.6.*
+    - php: 7.4
+      env:
+        - LARAVEL_VERSION=5.7.*
+    - php: 7.4
+      env:
+        - LARAVEL_VERSION=5.8.*
+    - php: 7.4
       env:
         - LARAVEL_VERSION=^6.0
-        - PHPUNIT_VERSION=^9.0
 
 before_install:
   - travis_retry composer self-update
   - composer require "laravel/framework:${LARAVEL_VERSION}" --no-update -n
-  - composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --dev --no-update -n
-  
+
 install:
   - travis_retry composer install --no-interaction --no-suggest --prefer-dist
 
