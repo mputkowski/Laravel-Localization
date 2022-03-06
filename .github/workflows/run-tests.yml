@@ -39,7 +39,7 @@ jobs:
               with:
                   php-version: ${{ matrix.php }}
                   extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, bcmath, soap, intl, gd, exif, iconv, fileinfo
-                  coverage: none
+                  coverage: xdebug2
             - name: Install dependencies
               run: |
                   composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update --dev
@@ -47,9 +47,8 @@ jobs:
             - name: Execute tests
               run: vendor/bin/phpunit --coverage-clover=coverage.xml
             - name: Upload coverage to Codecov
-              uses: codecov/codecov-action@v1
+              uses: codecov/codecov-action@v2
               with:
-                  token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
                   files: ./coverage.xml
                   flags: tests
                   name: codecov-umbrella
