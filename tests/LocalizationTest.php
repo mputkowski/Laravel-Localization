@@ -39,7 +39,7 @@ class LocalizationTest extends AbstractTestCase
 
     protected function langPath($locale)
     {
-        return app()->langPath().vsprintf('/%s', $locale);
+        return app()->langPath().'/'.$locale;
     }
 
     public function test_constructor_throws_exception_if_config_is_missing()
