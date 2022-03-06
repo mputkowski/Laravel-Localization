@@ -1,5 +1,5 @@
 # Laravel Localization
-[![Travis branch](https://img.shields.io/travis/mputkowski/Laravel-Localization/master.svg?style=flat-square)](https://travis-ci.org/mputkowski/Laravel-Localization)
+[![run-tests](https://github.com/mputkowski/Laravel-Localization/actions/workflows/tests.yml/badge.svg?branch=master)](https://github.com/mputkowski/Laravel-Localization/actions/workflows/tests.yml)
 [![StyleCI](https://styleci.io/repos/118966076/shield)](https://styleci.io/repos/118966076)
 [![Codecov](https://img.shields.io/codecov/c/github/mputkowski/Laravel-Localization.svg?style=flat-square)](https://codecov.io/gh/mputkowski/Laravel-Localization)
 [![Latest Stable Version](https://img.shields.io/packagist/v/mputkowski/Laravel-Localization.svg?style=flat-square)](https://packagist.org/packages/mputkowski/Laravel-Localization)
