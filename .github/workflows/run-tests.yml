@@ -11,7 +11,7 @@ jobs:
                 os: [ubuntu-latest]
                 php: [7.2, 7.4, 8.0]
                 laravel: [^6.0, ^7.0, ^8.0, ^9.0]
-                stability: [prefer-lowest, prefer-stable]
+                stability: [prefer-stable]
                 exclude:
                     - laravel: ^9.0
                       php: 7.2
@@ -52,4 +52,4 @@ jobs:
                   files: ./coverage.xml
                   flags: tests
                   name: codecov-umbrella
-                  fail_ci_if_error: true
+                  fail_ci_if_error: false
