@@ -10,7 +10,7 @@ use mputkowski\Localization\ServiceProvider;
 
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
-    protected function getServiceProviderClass($app)
+    protected function getServiceProviderClass()
     {
         return ServiceProvider::class;
     }
