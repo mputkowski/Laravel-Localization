@@ -6,7 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/mputkowski/Laravel-Localization.svg?style=flat-square)](https://packagist.org/packages/mputkowski/Laravel-Localization)
 [![License](https://img.shields.io/github/license/mputkowski/Laravel-Localization.svg?style=flat-square)](https://github.com/mputkowski/Laravel-Localization/blob/master/LICENSE)
 
-Powerful Localization for Laravel 5 and 6
+Powerful Localization for Laravel
 
 ## Installation
 Add package to composer.json
