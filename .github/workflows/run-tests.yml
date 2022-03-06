@@ -49,9 +49,8 @@ jobs:
             - name: Upload coverage to Codecov
               uses: codecov/codecov-action@v1
               with:
-                  token: ${{ secrets.CODECOV_TOKEN }}
-                  file: ./coverage.xml
+                  token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+                  files: ./coverage.xml
                   flags: tests
                   name: codecov-umbrella
-                  yml: ./codecov.yml
                   fail_ci_if_error: true
