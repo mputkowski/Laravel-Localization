@@ -13,6 +13,14 @@ Add package to composer.json
 ```
 composer require mputkowski/laravel-localization
 ```
+**Laravel 5 (5.5 or later)**
+```
+composer require mputkowski/laravel-localization:^3.2
+```
+**Laravel 6-9**
+```
+composer require mputkowski/laravel-localization:^4.0
+```
 Publish package's config file
 ```
 php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
@@ -65,6 +73,14 @@ Configuration is stored in `config/localization.php` file.
 
 ### Auto-detection
 If `auto` is set to `true`, app will automatically detect client's language. Directories in `resources/lang` will be compared with client's `Accept-Language` header. If header doesn't match with app's locales, language will be set to default. 
+
+Auto-detected language could be changed by accessing a special route designed for that, or by calling the `setLocale` method:
+
+```php
+use mputkowski\Localization\Facades\Localization;
+
+Localization::setLocale('en');
+```
 
 ### Route
 This package also provides routes for quick language change (url: `/lang/{lang}`, example `/lang/en`).
