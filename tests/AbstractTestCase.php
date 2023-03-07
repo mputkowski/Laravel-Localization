@@ -10,12 +10,12 @@ use mputkowski\Localization\ServiceProvider;
 
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
-    protected function getServiceProviderClass()
+    protected static function getServiceProviderClass(): string
     {
         return ServiceProvider::class;
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app): void
     {
         $app->config->set('localization', [
             'auto'           => true,

@@ -149,6 +149,12 @@ class Localization
      */
     private function getAvailableLocales()
     {
-        return array_values(array_diff(scandir(app()->langPath()), ['..', '.']));
+        $locales = array_values(array_diff(scandir(app()->langPath()), ['..', '.']));
+
+        foreach ($locales as &$locale) {
+            $locale = basename($locale, '.json');
+        }
+
+        return $locales;
     }
 }

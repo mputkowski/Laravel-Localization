@@ -10,17 +10,17 @@ class FacadeTest extends AbstractTestCase
 {
     use FacadeTrait;
 
-    protected function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'Localization';
     }
 
-    protected function getFacadeClass()
+    protected static function getFacadeClass(): string
     {
         return LocalizationFacade::class;
     }
 
-    protected function getFacadeRoot()
+    protected static function getFacadeRoot(): string
     {
         return Localization::class;
     }
