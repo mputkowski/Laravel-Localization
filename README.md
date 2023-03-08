@@ -9,40 +9,42 @@
 Powerful Localization for Laravel
 
 ## Installation
+||L6|L7|L8|L9|L10|
+|---|---|---|---|---|---|
+|v4|&check;|&check;|&check;|&check;|&cross;|
+|v5|&cross;|&cross;|&cross;|&check;|&check;|
+
 Add package to composer.json
 ```
 composer require mputkowski/laravel-localization
 ```
-**Laravel 5 (5.5 or later)**
-```
-composer require mputkowski/laravel-localization:^3.2
-```
-**Laravel 6-9**
-```
-composer require mputkowski/laravel-localization:^4.0
-```
+
 Publish package's config file
 ```
 php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
 ```
+
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
 ```php
 'web' => [
     \mputkowski\Localization\Middleware\VerifyLangCookie::class,
 ],
 ```
+
 **You don't have to register service provider and alias, this package uses Package Auto-Discovery.**
 
 ### Manual installation
 ```
 composer require mputkowski/laravel-localization
 ```
+
 In `config/app.php`, add the following to `providers` array:
 ```php
 'providers' => [
     mputkowski\Localization\ServiceProvider::class,
 ],
 ```
+
 And register alias in `aliases` array:
 ```php
 'aliases' => [
@@ -52,6 +54,7 @@ And register alias in `aliases` array:
 ```
 php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
 ```
+
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
 ```php
 'web' => [
@@ -72,7 +75,7 @@ Configuration is stored in `config/localization.php` file.
 |pattern|string|`/lang/{lang}`|
 
 ### Auto-detection
-If `auto` is set to `true`, app will automatically detect client's language. Directories in `resources/lang` will be compared with client's `Accept-Language` header. If header doesn't match with app's locales, language will be set to default. 
+If `auto` is set to `true`, the app will automatically detect client's language. The lang directory will be compared with the client's `Accept-Language` header. If header doesn't match with the app's locales, language will be set to default.
 
 Auto-detected language could be changed by accessing a special route designed for that, or by calling the `setLocale` method:
 
