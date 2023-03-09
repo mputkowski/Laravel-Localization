@@ -8,6 +8,11 @@ use mputkowski\Localization\Middleware\VerifyLangCookie;
 
 class MiddlewareTest extends AbstractTestCase
 {
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();

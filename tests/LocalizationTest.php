@@ -9,8 +9,18 @@ use mputkowski\Localization\Localization;
 
 class LocalizationTest extends AbstractTestCase
 {
+    /**
+     * List of locales to test.
+     *
+     * @var array
+     */
     protected array $locales = ['de', 'fr', 'it', 'pl'];
 
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,6 +34,11 @@ class LocalizationTest extends AbstractTestCase
         }
     }
 
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -37,6 +52,13 @@ class LocalizationTest extends AbstractTestCase
         }
     }
 
+    /**
+     * Get lang path.
+     *
+     * @param string $locale
+     * 
+     * @return string
+     */
     protected function langPath(string $locale): string
     {
         return app()->langPath().'/'.$locale;

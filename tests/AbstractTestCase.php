@@ -10,11 +10,23 @@ use mputkowski\Localization\ServiceProvider;
 
 abstract class AbstractTestCase extends AbstractPackageTestCase
 {
+    /**
+     * Get the service provider class.
+     *
+     * @return string
+     */
     protected static function getServiceProviderClass(): string
     {
         return ServiceProvider::class;
     }
 
+    /**
+     * Setup the application environment.
+     *
+     * @param \Illuminate\Contracts\Foundation\Application $app
+     *
+     * @return void
+     */
     protected function getEnvironmentSetUp($app): void
     {
         $app->config->set('localization', [
@@ -28,6 +40,13 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
         ]);
     }
 
+    /**
+     * Get fresh Localization object.
+     *
+     * @param \Illuminate\Http\Request|null $request
+     * 
+     * @return \mputkowski\Localization\Localization
+     */
     protected function getLocalizationObject(?Request $request = null): Localization
     {
         $data = require __DIR__.'/../config/localization.php';
