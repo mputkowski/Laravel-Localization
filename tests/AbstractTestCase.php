@@ -52,6 +52,6 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
         $data = require __DIR__.'/../config/localization.php';
         $config = new Repository(['localization' => $data]);
 
-        return new Localization($config, $request ?? new Request());
+        return new Localization($config, $request ?? new Request);
     }
 }

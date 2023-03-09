@@ -69,14 +69,14 @@ class LocalizationTest extends AbstractTestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Missing localization config');
 
-        $config = new Repository();
+        $config = new Repository;
 
-        $localization = new Localization($config, new Request());
+        $localization = new Localization($config, new Request);
     }
 
     public function test_get_request_method_is_the_same_as_provided()
     {
-        $request = new Request();
+        $request = new Request;
         $request->headers->set('Accept-Language', 'pl,fr;q=0.8,de;q=0.7,en;q=0.6');
         $request->cookies->set('lang', 'en');
         $locale = $this->getLocalizationObject($request);
@@ -87,7 +87,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_validate_method_sets_locale()
     {
-        $request = new Request();
+        $request = new Request;
         $request->cookies->set('lang', 'it');
         $locale = $this->getLocalizationObject($request);
 
@@ -98,7 +98,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_preferred_language()
     {
-        $request = new Request();
+        $request = new Request;
         $request->headers->set('Accept-Language', 'fr,de;q=0.9,pl;q=0.8');
         $locale = $this->getLocalizationObject($request);
 
@@ -109,7 +109,7 @@ class LocalizationTest extends AbstractTestCase
     public function test_set_lang_method()
     {
         $locale = $this->getLocalizationObject();
-        $cookie = $locale->setLocale('de');
+        $locale->setLocale('de');
 
         $this->assertEquals('de', $locale->getLocale());
     }
@@ -128,7 +128,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_handling_missing_accept_language_header()
     {
-        $request = new Request();
+        $request = new Request;
 
         $locale = $this->getLocalizationObject($request);
         $lang = $locale->getPreferredLanguage();
