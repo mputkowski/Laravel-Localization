@@ -47,11 +47,11 @@ class Localization
         $this->config = $config;
         $this->request = $request;
 
-        $cookie_name = $this->config->get('localization.cookie_name');
-        $cookie_value = $request->cookie($cookie_name);
+        $cookieName = $this->config->get('localization.cookie_name');
+        $cookieValue = $request->cookie($cookieName);
 
-        if (is_string($cookie_value)) {
-            $this->cookie = $this->makeCookie($request->cookie($cookie_name));
+        if (is_string($cookieValue)) {
+            $this->cookie = $this->makeCookie($request->cookie($cookieName));
         }
     }
 
