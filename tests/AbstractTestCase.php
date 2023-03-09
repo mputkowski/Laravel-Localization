@@ -44,7 +44,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
      * Get fresh Localization object.
      *
      * @param \Illuminate\Http\Request|null $request
-     * 
+     *
      * @return \mputkowski\Localization\Localization
      */
     protected function getLocalizationObject(?Request $request = null): Localization

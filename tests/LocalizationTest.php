@@ -56,7 +56,7 @@ class LocalizationTest extends AbstractTestCase
      * Get lang path.
      *
      * @param string $locale
-     * 
+     *
      * @return string
      */
     protected function langPath(string $locale): string
