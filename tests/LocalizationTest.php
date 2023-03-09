@@ -9,7 +9,7 @@ use mputkowski\Localization\Localization;
 
 class LocalizationTest extends AbstractTestCase
 {
-    protected $locales = ['de', 'fr', 'it', 'pl'];
+    protected array $locales = ['de', 'fr', 'it', 'pl'];
 
     protected function setUp(): void
     {
@@ -37,7 +37,7 @@ class LocalizationTest extends AbstractTestCase
         }
     }
 
-    protected function langPath($locale)
+    protected function langPath(string $locale): string
     {
         return app()->langPath().'/'.$locale;
     }
@@ -57,7 +57,7 @@ class LocalizationTest extends AbstractTestCase
         $request = new Request();
         $request->headers->set('Accept-Language', 'pl,fr;q=0.8,de;q=0.7,en;q=0.6');
         $request->cookies->set('lang', 'en');
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
 
         $this->assertEquals($request, $locale->getRequest());
         $this->assertEquals($request->cookies->get('lang'), $locale->getCookie()->getValue());
@@ -67,7 +67,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $request = new Request();
         $request->cookies->set('lang', 'it');
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
 
         $locale->validate();
 
@@ -78,7 +78,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $request = new Request();
         $request->headers->set('Accept-Language', 'fr,de;q=0.9,pl;q=0.8');
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
 
         $lang = $locale->getPreferredLanguage();
         $this->assertEquals('fr', $lang);
@@ -86,7 +86,7 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_set_lang_method()
     {
-        $locale = $this->getLocale();
+        $locale = $this->getLocalizationObject();
         $cookie = $locale->setLocale('de');
 
         $this->assertEquals('de', $locale->getLocale());
@@ -108,7 +108,7 @@ class LocalizationTest extends AbstractTestCase
     {
         $request = new Request();
 
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
         $lang = $locale->getPreferredLanguage();
 
         $this->assertEquals('en', $lang);

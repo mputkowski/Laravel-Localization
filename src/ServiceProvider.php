@@ -58,7 +58,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return callable
      */
-    private function getRouteCallback()
+    private function getRouteCallback(): callable
     {
         return function ($lang) {
             $localization = app('Localization');
@@ -74,7 +74,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return void
      */
-    private function registerRoute()
+    private function registerRoute(): void
     {
         $route = config('localization.route.pattern', '/lang/{lang}');
 

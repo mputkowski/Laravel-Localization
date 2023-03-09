@@ -28,7 +28,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
         ]);
     }
 
-    protected function getLocale($request = null)
+    protected function getLocalizationObject(?Request $request = null): Localization
     {
         $data = require __DIR__.'/../config/localization.php';
         $config = new Repository(['localization' => $data]);
