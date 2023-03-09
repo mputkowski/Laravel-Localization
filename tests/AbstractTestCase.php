@@ -44,7 +44,7 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
      * Get fresh Localization object.
      *
      * @param \Illuminate\Http\Request|null $request
-     * 
+     *
      * @return \mputkowski\Localization\Localization
      */
     protected function getLocalizationObject(?Request $request = null): Localization
@@ -52,6 +52,6 @@ abstract class AbstractTestCase extends AbstractPackageTestCase
         $data = require __DIR__.'/../config/localization.php';
         $config = new Repository(['localization' => $data]);
 
-        return new Localization($config, $request ?? new Request);
+        return new Localization($config, $request ?? new Request());
     }
 }
