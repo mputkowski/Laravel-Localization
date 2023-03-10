@@ -117,9 +117,9 @@ class LocalizationTest extends AbstractTestCase
     public function test_locale_route()
     {
         $request = Request::create('lang/pl', 'GET');
-        $route = last(app('router')->getRoutes()->get());
+        $router = app('router')->getRoutes()->getByName('localization');
 
-        $response = $route->bind($request)->run();
+        $response = $router->bind($request)->run();
         $cookie = last($response->headers->getCookies());
 
         $this->assertEquals(302, $response->getStatusCode());
