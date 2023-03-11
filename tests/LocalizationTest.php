@@ -9,8 +9,18 @@ use mputkowski\Localization\Localization;
 
 class LocalizationTest extends AbstractTestCase
 {
-    protected $locales = ['de', 'fr', 'it', 'pl'];
+    /**
+     * List of locales to test.
+     *
+     * @var array
+     */
+    protected array $locales = ['de', 'fr', 'it', 'pl'];
 
+    /**
+     * Setup the test environment.
+     *
+     * @return void
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -24,6 +34,11 @@ class LocalizationTest extends AbstractTestCase
         }
     }
 
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
     protected function tearDown(): void
     {
         parent::tearDown();
@@ -37,7 +52,14 @@ class LocalizationTest extends AbstractTestCase
         }
     }
 
-    protected function langPath($locale)
+    /**
+     * Get lang path.
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function langPath(string $locale): string
     {
         return app()->langPath().'/'.$locale;
     }
@@ -47,17 +69,17 @@ class LocalizationTest extends AbstractTestCase
         $this->expectException(FileNotFoundException::class);
         $this->expectExceptionMessage('Missing localization config');
 
-        $config = new Repository();
+        $config = new Repository;
 
-        $localization = new Localization($config, new Request());
+        $localization = new Localization($config, new Request);
     }
 
     public function test_get_request_method_is_the_same_as_provided()
     {
-        $request = new Request();
+        $request = new Request;
         $request->headers->set('Accept-Language', 'pl,fr;q=0.8,de;q=0.7,en;q=0.6');
         $request->cookies->set('lang', 'en');
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
 
         $this->assertEquals($request, $locale->getRequest());
         $this->assertEquals($request->cookies->get('lang'), $locale->getCookie()->getValue());
@@ -65,9 +87,9 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_validate_method_sets_locale()
     {
-        $request = new Request();
+        $request = new Request;
         $request->cookies->set('lang', 'it');
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
 
         $locale->validate();
 
@@ -76,9 +98,9 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_preferred_language()
     {
-        $request = new Request();
+        $request = new Request;
         $request->headers->set('Accept-Language', 'fr,de;q=0.9,pl;q=0.8');
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
 
         $lang = $locale->getPreferredLanguage();
         $this->assertEquals('fr', $lang);
@@ -86,8 +108,8 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_set_lang_method()
     {
-        $locale = $this->getLocale();
-        $cookie = $locale->setLocale('de');
+        $locale = $this->getLocalizationObject();
+        $locale->setLocale('de');
 
         $this->assertEquals('de', $locale->getLocale());
     }
@@ -95,9 +117,9 @@ class LocalizationTest extends AbstractTestCase
     public function test_locale_route()
     {
         $request = Request::create('lang/pl', 'GET');
-        $route = last(app('router')->getRoutes()->get());
+        $router = app('router')->getRoutes()->getByName('localization');
 
-        $response = $route->bind($request)->run();
+        $response = $router->bind($request)->run();
         $cookie = last($response->headers->getCookies());
 
         $this->assertEquals(302, $response->getStatusCode());
@@ -106,9 +128,9 @@ class LocalizationTest extends AbstractTestCase
 
     public function test_handling_missing_accept_language_header()
     {
-        $request = new Request();
+        $request = new Request;
 
-        $locale = $this->getLocale($request);
+        $locale = $this->getLocalizationObject($request);
         $lang = $locale->getPreferredLanguage();
 
         $this->assertEquals('en', $lang);

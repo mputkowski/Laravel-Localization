@@ -47,11 +47,11 @@ class Localization
         $this->config = $config;
         $this->request = $request;
 
-        $cookie_name = $this->config->get('localization.cookie_name');
-        $cookie_value = $request->cookie($cookie_name);
+        $cookieName = $this->config->get('localization.cookie_name');
+        $cookieValue = $request->cookie($cookieName);
 
-        if (is_string($cookie_value)) {
-            $this->cookie = $this->makeCookie($request->cookie($cookie_name));
+        if (is_string($cookieValue)) {
+            $this->cookie = $this->makeCookie($request->cookie($cookieName));
         }
     }
 
@@ -60,7 +60,7 @@ class Localization
      *
      * @return null|\Symfony\Component\HttpFoundation\Cookie
      */
-    public function getCookie()
+    public function getCookie(): ?Cookie
     {
         return $this->cookie;
     }
@@ -70,7 +70,7 @@ class Localization
      *
      * @return \Illuminate\Http\Request
      */
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->request;
     }
@@ -80,7 +80,7 @@ class Localization
      *
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): string
     {
         return app()->getLocale();
     }
@@ -92,7 +92,7 @@ class Localization
      *
      * @return void
      */
-    public function setLocale($locale = null)
+    public function setLocale(?string $locale = null): void
     {
         $locale = $locale ?? $this->config->get('localization.default_locale');
 
@@ -105,7 +105,7 @@ class Localization
      *
      * @return void
      */
-    public function validate()
+    public function validate(): void
     {
         if ($this->cookie instanceof Cookie && $this->cookie->getValue() !== $this->getLocale()) {
             $this->setLocale($this->cookie->getValue());
@@ -119,7 +119,7 @@ class Localization
      *
      * @return string
      */
-    public function getPreferredLanguage()
+    public function getPreferredLanguage(): string
     {
         if ($this->request->headers->has('Accept-Language') === false) {
             return $this->config->get('localization.default_locale');
@@ -137,7 +137,7 @@ class Localization
      *
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    public function makeCookie($value)
+    public function makeCookie(string $value): Cookie
     {
         return cookie()->forever($this->config->get('localization.cookie_name'), $value);
     }
@@ -147,8 +147,14 @@ class Localization
      *
      * @return array
      */
-    private function getAvailableLocales()
+    private function getAvailableLocales(): array
     {
-        return array_values(array_diff(scandir(app()->langPath()), ['..', '.']));
+        $locales = array_values(array_diff(scandir(app()->langPath()), ['..', '.']));
+
+        foreach ($locales as &$locale) {
+            $locale = basename($locale, '.json');
+        }
+
+        return $locales;
     }
 }
