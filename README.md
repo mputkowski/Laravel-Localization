@@ -6,7 +6,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/mputkowski/Laravel-Localization.svg?style=flat-square)](https://packagist.org/packages/mputkowski/Laravel-Localization)
 [![License](https://img.shields.io/github/license/mputkowski/Laravel-Localization.svg?style=flat-square)](https://github.com/mputkowski/Laravel-Localization/blob/master/LICENSE)
 
-Powerful Localization for Laravel
+Localization for Laravel
 
 ## Installation
 ||L6|L7|L8|L9|L10|
