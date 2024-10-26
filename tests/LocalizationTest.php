@@ -43,6 +43,7 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @expectedException \Illuminate\Contracts\Filesystem\FileNotFoundException
+     *
      * @expectedExceptionMessage Missing localization config
      */
     public function test_constructor_throws_exception_if_config_is_missing()
