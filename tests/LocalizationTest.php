@@ -43,6 +43,7 @@ class LocalizationTest extends AbstractTestCase
 
     /**
      * @expectedException Exception
+     *
      * @expectedExceptionMessage Missing localization config
      */
     public function test_constructor_throws_exception_if_config_is_missing()
