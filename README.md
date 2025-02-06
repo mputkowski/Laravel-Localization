@@ -9,10 +9,10 @@
 Localization for Laravel
 
 ## Installation
-||L6|L7|L8|L9|L10|
-|---|---|---|---|---|---|
-|v4|&check;|&check;|&check;|&check;|&cross;|
-|v5|&cross;|&cross;|&cross;|&check;|&check;|
+||L6|L7|L8|L9|L10|L11|
+|---|---|---|---|---|---|---|
+|v4|&check;|&check;|&check;|&check;|&cross;|&cross;|
+|v5|&cross;|&cross;|&cross;|&check;|&check;|&check;|
 
 Add package to composer.json
 ```
