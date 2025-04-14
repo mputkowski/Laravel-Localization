@@ -12,8 +12,7 @@ return [
     | If the header doesn't match with the app's locales, language will be set to default.
     |
     */
-
-    'auto'           => true,
+    'auto' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -23,8 +22,7 @@ return [
     | Name of the cookie which stores the current language setting.
     |
     */
-
-    'cookie_name'    => 'lang',
+    'cookie_name' => 'lang',
 
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +32,6 @@ return [
     | Fallback language for the "auto" feature.
     |
     */
-
     'default_locale' => 'en',
 
     /*
@@ -46,8 +43,7 @@ return [
     | pattern - string
     |
     */
-
-    'route'          => [
+    'route' => [
         'enabled' => true,
         'pattern' => '/lang/{lang}',
     ],
