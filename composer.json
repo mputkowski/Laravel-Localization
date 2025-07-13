@@ -1,7 +1,16 @@
 {
     "name": "mputkowski/laravel-localization",
     "description": "Powerful Localization for Laravel",
-    "keywords": ["laravel", "framework", "localization", "locale", "Laravel Localization", "Laravel-Localization", "Laravel Locale", "Laravel-Locale"],
+    "keywords": [
+        "laravel",
+        "framework",
+        "localization",
+        "locale",
+        "Laravel Localization",
+        "Laravel-Localization",
+        "Laravel Locale",
+        "Laravel-Locale"
+    ],
     "license": "MIT",
     "authors": [
         {
@@ -11,11 +20,11 @@
     ],
     "require": {
         "php": "^8.0.2",
-        "illuminate/cookie": "^9.0|^10.0|^11.0",
-        "illuminate/support": "^9.0|^10.0|^11.0"
+        "illuminate/cookie": "^9.0|^10.0|^11.0|^12.0",
+        "illuminate/support": "^9.0|^10.0|^11.0|^12.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^9.5.8|^10.0",
+        "phpunit/phpunit": "^9.5.8|^10.0|^11.0",
         "graham-campbell/testbench": "^5.7|^6.0"
     },
     "autoload": {
