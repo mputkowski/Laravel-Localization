@@ -9,10 +9,10 @@
 Localization for Laravel
 
 ## Installation
-||L6|L7|L8|L9|L10|L11|
-|---|---|---|---|---|---|---|
-|v4|&check;|&check;|&check;|&check;|&cross;|&cross;|
-|v5|&cross;|&cross;|&cross;|&check;|&check;|&check;|
+||L6|L7|L8|L9|L10|L11|L12
+|---|---|---|---|---|---|---|---|
+|v4|&check;|&check;|&check;|&check;|&cross;|&cross;|&cross;|
+|v5|&cross;|&cross;|&cross;|&check;|&check;|&check;|&check;|
 
 Add package to composer.json
 ```
@@ -24,6 +24,19 @@ Publish package's config file
 php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
 ```
 
+### Laravel 11 or newer
+
+Append the middleware to the `web` group in the `bootstrap/app.php`:
+```php
+->withMiddleware(function (Middleware $middleware) {
+    $middleware->web(append: [
+        \mputkowski\Localization\Middleware\VerifyLangCookie::class,
+    ]);
+})
+```
+
+### Laravel 10 or older
+
 Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
 ```php
 'web' => [
@@ -32,35 +45,6 @@ Include middleware within the `web` group in `middlewareGroups` array (`app/Http
 ```
 
 **You don't have to register service provider and alias, this package uses Package Auto-Discovery.**
-
-### Manual installation
-```
-composer require mputkowski/laravel-localization
-```
-
-In `config/app.php`, add the following to `providers` array:
-```php
-'providers' => [
-    mputkowski\Localization\ServiceProvider::class,
-],
-```
-
-And register alias in `aliases` array:
-```php
-'aliases' => [
-    'Localization' => mputkowski\Localization\Facades\Localization::class,
-],
-```
-```
-php artisan vendor:publish --provider="mputkowski\Localization\ServiceProvider"
-```
-
-Include middleware within the `web` group in `middlewareGroups` array (`app/Http/Kernel.php`):
-```php
-'web' => [
-    \mputkowski\Localization\Middleware\VerifyLangCookie::class,
-],
-```
 
 ## Configuration
 Configuration is stored in `config/localization.php` file.
@@ -96,7 +80,7 @@ This project is open-sourced software licensed under the [MIT license](http://op
 ```
 MIT License
 
-Copyright (c) 2018 - 2024 Michał Putkowski
+Copyright (c) 2018 - 2025 Michał Putkowski
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
